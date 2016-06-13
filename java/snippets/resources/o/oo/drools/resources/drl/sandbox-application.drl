@@ -1,0 +1,14 @@
+package com.example.drools.resources.drl;
+
+impo.oo.drools.sandbox.Libraryryry;
+io.oo.drools.sandbox.Bookookook;
+impcom.example.drools.sandbox.BookTo.oo.drools.sandbox.Authorndbox.Authoruthor;
+
+rule "positional arguments"
+	//dialect "java"
+	//no-loop true
+	when
+		$b : (Book(type == BookType.FICTION) or Book(type == BookType.TECHNICAL))
+	then
+		System.out.println($b.getTitle());
+end

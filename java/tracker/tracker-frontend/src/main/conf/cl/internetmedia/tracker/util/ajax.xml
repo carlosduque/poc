@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="ajax" namespace="/ajax" extends="json-default">
+
+      <action name="getJSONResult" class="cl.internetmedia.tracker.frontend.action.JSONDataAction">
+           <result type="json" />
+      </action>
+      
+      <action name="GetJsonTrackingHistory" class="cl.internetmedia.tracker.frontend.action.TrackingHistoryAction">
+           <result type="json">
+             <param name="root">crumbs</param>
+             <!-- param name="includeProperties">crumbs</param-->
+             <!-- param name="includeProperties">
+			    ^entries\[\d+\]\.clientNumber,
+			    ^entries\[\d+\]\.scheduleNumber,
+			    ^entries\[\d+\]\.createUserId
+             </param-->
+           </result>
+           
+      </action>
+
+  </package>
+</struts>

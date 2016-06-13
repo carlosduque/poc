@@ -1,0 +1,76 @@
+---
+# Front matter comment to ensure Jekyll properly reads file.
+---
+@charset "utf-8";
+
+//$text-color:       #4A1031;
+//$text-color:       #731842;
+$text-color:       #d34d9c;
+//$text-color:       #ae007b;
+
+body {
+    color: $text-color;
+    background-image: url("img/bg.jpg");
+}
+
+@font-face {
+    font-family: 'SomeSugar2';
+    src: url('/fonts/give_me_some_sugar_2.ttf');
+}
+
+.page-header {
+    font-family: 'SomeSugar2', Helvetica, Arial, sans-serif;
+}
+
+.page-content {
+  padding: 100px 0; /* VERTICAL PADDING FOR TITLE ON EVERY PAGE */
+}
+
+#main-container {
+    background-color: #fff;
+    width:            1000px;
+}
+
+.h1 .small, .h1 small, .h2 .small, .h2 small, .h3 .small, .h3 small, .h4 .small, .h4 small, .h5 .small, .h5 small, .h6
+.small, .h6 small, h1 .small, h1 small, h2 .small, h2 small, h3 .small, h3 small, h4 .small, h4 small, h5 .small, h5
+small, h6 .small, h6 small {
+  color: #c67ba5;
+}
+
+.navbar-default .navbar-nav {
+  li > a {
+    color: #fff;
+    background-color: #d34d9c;
+  }
+  .open > a:focus,
+  .open > a:hover {
+    background-color: #ae007b;
+  }
+}
+
+.dropdown-header {
+  color: #ffc6d2;
+  font-size: 14px;
+}
+
+.dropdown-menu {
+  background-color: #d34d9c;
+  li > a {
+    color: #fff;
+  }
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  background-color: #ae007b;
+  color: #fff;
+}
+
+.sub {
+  font-size: 12px;
+}
+
+.bg-danger {
+  background-color: #d34d9c;
+}
+

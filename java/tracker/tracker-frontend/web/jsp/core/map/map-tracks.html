@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map_canvas { height: 100% }
+    </style>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjJYTB4-BJRCpTPGhq6cJTm0LjIEjrkJ0&sensor=false"></script>
+    <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+
+    <script type="text/javascript">
+    var map;
+    var markersArray = [];
+
+    function initialize() {
+       var homeLat = -33.421423;
+       var homeLon = -70.564475;
+       var equilibra = new google.maps.LatLng(homeLat, homeLon);
+       var mapOptions = {
+         //-33.421423, -70.564475 : Manquehue Sur 1333, Santiago, Chile
+         center: equilibra,
+         zoom: 12,
+         mapTypeId: google.maps.MapTypeId.ROADMAP
+       };
+       var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+       google.maps.event.addListener(map, 'click', function(event) {
+           addMarker(event.latLng);
+        });
+
+        home = new google.maps.Marker({
+                position: equilibra,
+                draggable:false,
+                animation: google.maps.Animation.DROP,
+                title: "Equilibra",
+                map: map
+            });
+        var shadow = 'cycle-64x20-bw.png';
+        var motorcycle = 'cycle-64x20.png';
+
+
+        function addMarker(location) {
+            marker = new google.maps.Marker({
+                position: location,
+                draggable:false,
+                animation: google.maps.Animation.DROP,
+                icon: shadow,
+                map: map
+            });
+            markersArray.push(marker);
+        };
+
+        function addLatestLocationMarker(location, info) {
+            marker = new google.maps.Marker({
+                position: location,
+                draggable:false,
+                animation: google.maps.Animation.BOUNCE,
+                icon: motorcycle,
+                title: info,
+                map: map
+            });
+            markersArray.push(marker);
+        };
+
+        addMarker(new google.maps.LatLng(homeLat + 0.010000, homeLon + 0.010000));
+
+        addMarker(new google.maps.LatLng(homeLat + 0.020000, homeLon + 0.010000));
+        addMarker(new google.maps.LatLng(homeLat + 0.030000, homeLon + 0.020000));
+        addMarker(new google.maps.LatLng(homeLat + 0.040000, homeLon + 0.030000));
+
+        addMarker(new google.maps.LatLng(homeLat - 0.010000, homeLon - 0.010000));
+        addMarker(new google.maps.LatLng(homeLat - 0.020000, homeLon - 0.001000));
+        addMarker(new google.maps.LatLng(homeLat - 0.030000, homeLon - 0.010000));
+        addMarker(new google.maps.LatLng(homeLat - 0.040000, homeLon - 0.010000));
+
+        addMarker(new google.maps.LatLng(homeLat + 0.010000, homeLon - 0.010000));
+        addMarker(new google.maps.LatLng(homeLat + 0.015000, homeLon - 0.018000));
+        addMarker(new google.maps.LatLng(homeLat + 0.016000, homeLon - 0.019000));
+
+
+        addLatestLocationMarker(new google.maps.LatLng(homeLat + 0.050000, homeLon + 0.020000), "PackageHandler 1");
+        addLatestLocationMarker(new google.maps.LatLng(homeLat - 0.040000, homeLon - 0.020000), "PackageHandler 2");
+        addLatestLocationMarker(new google.maps.LatLng(homeLat + 0.010000, homeLon - 0.050000), "PackageHandler 3");
+
+        var coords1 = [
+            equilibra,
+            new google.maps.LatLng(homeLat + 0.010000, homeLon + 0.010000),
+            new google.maps.LatLng(homeLat + 0.020000, homeLon + 0.010000),
+            new google.maps.LatLng(homeLat + 0.030000, homeLon + 0.020000),
+            new google.maps.LatLng(homeLat + 0.040000, homeLon + 0.030000),
+            new google.maps.LatLng(homeLat + 0.050000, homeLon + 0.020000)
+        ];
+
+        var coords2 = [
+            equilibra,
+            new google.maps.LatLng(homeLat - 0.010000, homeLon - 0.010000),
+            new google.maps.LatLng(homeLat - 0.020000, homeLon - 0.001000),
+            new google.maps.LatLng(homeLat - 0.030000, homeLon - 0.010000),
+            new google.maps.LatLng(homeLat - 0.040000, homeLon - 0.010000),
+            new google.maps.LatLng(homeLat - 0.040000, homeLon - 0.020000)
+        ];
+
+        var coords3 = [
+            equilibra,
+            new google.maps.LatLng(homeLat + 0.010000, homeLon - 0.010000),
+            new google.maps.LatLng(homeLat + 0.015000, homeLon - 0.018000),
+            new google.maps.LatLng(homeLat + 0.016000, homeLon - 0.019000),
+            new google.maps.LatLng(homeLat + 0.010000, homeLon - 0.050000)
+        ];
+
+        var route1 = new google.maps.Polyline({
+            path: coords1,
+            strokeColor: "#BB00AA",
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+            });
+
+        var route2 = new google.maps.Polyline({
+            path: coords2,
+            strokeColor: "#FF0099",
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+            });
+
+        var route3 = new google.maps.Polyline({
+            path: coords3,
+            strokeColor: "#AA00DD",
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+            });
+
+        route1.setMap(map);
+        route2.setMap(map);
+        route3.setMap(map);
+
+    };
+    </script>
+  </head>
+  <body onload="initialize()">
+      <div id="map_canvas" style="width:100%; height:100%"></div>
+      <div id="message"><span></span></div>
+    <div id="points">
+[
+{"track":{"id":"1","date":"20130220144560","longitude":"-33.455000","latitude":"-70.655000","packagehandler":{"id":"1","name":"Anakin","lastname":"Skywalker","phonenumber":"11119999"}}},
+{"track":{"id":"1","date":"20130220150060","longitude":"-33.455000","latitude":"-70.680000","packagehandler":{"id":"1","name":"Anakin","lastname":"Skywalker","phonenumber":"11119999"}}},
+{"track":{"id":"1","date":"20130220151060","longitude":"-33.465000","latitude":"-70.710000","packagehandler":{"id":"1","name":"Anakin","lastname":"Skywalker","phonenumber":"11119999"}}},
+{"track":{"id":"1","date":"20130220152560","longitude":"-33.467500","latitude":"-70.750000","packagehandler":{"id":"1","name":"Anakin","lastname":"Skywalker","phonenumber":"11119999"}}},
+{"track":{"id":"1","date":"20130220155060","longitude":"-33.470000","latitude":"-70.775000","packagehandler":{"id":"1","name":"Anakin","lastname":"Skywalker","phonenumber":"11119999"}}},
+{"track":{"id":"1","date":"20130220160560","longitude":"-33.480000","latitude":"-70.775000","packagehandler":{"id":"1","name":"Anakin","lastname":"Skywalker","phonenumber":"11119999"}}},
+{"track":{"id":"1","date":"20130220170060","longitude":"-33.485000","latitude":"-70.785000","packagehandler":{"id":"1","name":"Anakin","lastname":"Skywalker","phonenumber":"11119999"}}},
+
+{"track":{"id":"2","date":"20130220100060","longitude":"-33.456000","latitude":"-70.665000","packagehandler":{"id":"2","name":"Bruce","lastname":"Wayne","phonenumber":"22228888"}}},
+{"track":{"id":"2","date":"20130220102560","longitude":"-33.457000","latitude":"-70.690000","packagehandler":{"id":"2","name":"Bruce","lastname":"Wayne","phonenumber":"22228888"}}},
+{"track":{"id":"2","date":"20130220105060","longitude":"-33.468000","latitude":"-70.720000","packagehandler":{"id":"2","name":"Bruce","lastname":"Wayne","phonenumber":"22228888"}}},
+{"track":{"id":"2","date":"20130220110560","longitude":"-33.468500","latitude":"-70.760000","packagehandler":{"id":"2","name":"Bruce","lastname":"Wayne","phonenumber":"22228888"}}},
+{"track":{"id":"2","date":"20130220121560","longitude":"-33.473000","latitude":"-70.785000","packagehandler":{"id":"2","name":"Bruce","lastname":"Wayne","phonenumber":"22228888"}}},
+{"track":{"id":"2","date":"20130220134560","longitude":"-33.483000","latitude":"-70.795000","packagehandler":{"id":"2","name":"Bruce","lastname":"Wayne","phonenumber":"22228888"}}},
+{"track":{"id":"2","date":"20130220140060","longitude":"-33.488000","latitude":"-70.799000","packagehandler":{"id":"2","name":"Bruce","lastname":"Wayne","phonenumber":"22228888"}}},
+
+{"track":{"id":"3","date":"20130220110060","longitude":"-33.456000","latitude":"-70.655000","packagehandler":{"id":"3","name":"Erick","lastname":"Lenscherr","phonenumber":"33337777"}}},
+{"track":{"id":"3","date":"20130220112560","longitude":"-33.455000","latitude":"-70.649000","packagehandler":{"id":"3","name":"Erick","lastname":"Lenscherr","phonenumber":"33337777"}}},
+{"track":{"id":"3","date":"20130220115060","longitude":"-33.464000","latitude":"-70.649500","packagehandler":{"id":"3","name":"Erick","lastname":"Lenscherr","phonenumber":"33337777"}}},
+{"track":{"id":"3","date":"20130220120560","longitude":"-33.463500","latitude":"-70.638000","packagehandler":{"id":"3","name":"Erick","lastname":"Lenscherr","phonenumber":"33337777"}}},
+{"track":{"id":"3","date":"20130220131560","longitude":"-33.472000","latitude":"-70.635800","packagehandler":{"id":"3","name":"Erick","lastname":"Lenscherr","phonenumber":"33337777"}}},
+{"track":{"id":"3","date":"20130220144560","longitude":"-33.481000","latitude":"-70.605000","packagehandler":{"id":"3","name":"Erick","lastname":"Lenscherr","phonenumber":"33337777"}}},
+{"track":{"id":"3","date":"20130220160060","longitude":"-33.480000","latitude":"-70.599000","packagehandler":{"id":"3","name":"Erick","lastname":"Lenscherr","phonenumber":"33337777"}}}
+]
+    </div>
+
+  </body>
+</html>
+

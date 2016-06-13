@@ -1,0 +1,22 @@
+<ivy-module version="2.0">
+    <info organisation="cl.internetmedia" 
+      module="tracker-common"
+      status="integration">
+      <ivyauthor name="Carlos Duque" url="http://www.internetmedia.cl/" />
+    </info>
+    <configurations>
+      <conf name="default" />
+      <conf name="compile" extends="default" visibility="private" />
+      <conf name="test" />
+    </configurations>
+    <publications>
+      <artifact name="tracker-common" type="jar" ext="jar" conf="default" />
+    </publications>
+    <dependencies>
+        <dependency org="org.slf4j" name="slf4j-api" rev="1.7.2" conf="compile->default" />
+        <dependency org="ch.qos.logback" name="logback-classic" rev="1.0.9" conf="compile->default" />
+        <dependency org="ch.qos.logback" name="logback-core" rev="1.0.9" conf="compile->default" />
+
+        <dependency org="junit" name="junit" rev="4.10" conf="test->default" />
+    </dependencies>
+</ivy-module>

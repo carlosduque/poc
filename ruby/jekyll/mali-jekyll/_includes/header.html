@@ -1,0 +1,72 @@
+<div class="page-header">
+  <div class="container">
+    <div class="row-fluid">
+      <h1>Mali Accesorios <small>Hechos a mano con diseño y estilo</small></h1>
+    </div>
+  </div>
+</div>
+<!-- boot -->
+<nav class="navbar navbar-default">
+    <div class="container-fluid bg-danger">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!--a class="navbar-brand" href="{{ site.url }}">Brand</a-->
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <!--li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li-->
+                <li><a href="{{ site.url }}">Inicio</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                        aria-expanded="false">Catalogo</a>
+                    <ul class="dropdown-menu">
+                        {% assign catalogo_coll = site.catalogo | sort: 'weight' %}
+                        {% for item in catalogo_coll %}
+                          {% if item.title == 'Lazos' %}
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">{{ item.title }}</li>
+                            {% assign lazo_coll = site.lazos | sort: 'weight' %}
+                            {% for lazo in lazo_coll %}
+                              {% if lazo.title == 'Especiales' %}
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">{{ lazo.title }}</li>
+                                {% assign especiales_coll = site.especiales | sort: 'weight' %}
+                                {% for especial in especiales_coll %}
+                                  <li class="sub"><a href="{{ especial.url | prepend: site.baseurl }}">{{ especial.title }}</a></li>
+                                {% endfor %}
+                              {% else %}
+                                <li class="sub"><a href="{{ lazo.url | prepend: site.baseurl }}">{{ lazo.title }}</a></li>
+                              {% endif %}
+                            {% endfor %}
+                          {% else %}
+                            <li><a href="{{ item.url | prepend: site.baseurl }}">{{ item.title }}</a></li>
+                          {% endif %}
+                        {% endfor %}
+                        <!--li role="separator" class="divider"></li-->
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                        aria-expanded="false">Estacionales</a>
+                    <ul class="dropdown-menu">
+                        {% for product in site.estacional %}
+                        <li><a href="{{ product.url | prepend: site.baseurl }}">{{ product.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li><a href="/quienes">Quienes Somos</a></li>
+                <li><a href="/contacto">Contacto</a></li>
+            </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<!-- /boot -->

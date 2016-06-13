@@ -1,0 +1,36 @@
+# Site settings
+title: Mali Accesorios
+email: info@maliaccesorios.cl
+description: > # this means to ignore newlines until "baseurl:"
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  Sed ac mi at ipsum maximus ullamcorper et consequat ante.
+  Sed risus metus, pretium et ornare eget, imperdiet ultrices turpis.
+  Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url:  http://localhost:4000/ # the base hostname & protocol for your site
+#url:  http://www.maliaccesorios.cl/ # the base hostname & protocol for your site
+twitter_username: mali
+github_username: mali
+
+# Build settings
+markdown: kramdown
+hightlighter: pygments
+
+# Pagination
+paginate: 15
+paginate_path: "/blog/page:num/"
+
+
+collections:
+  catalogo:
+    output: true
+    permalink: /catalogo/:path/
+  lazos:
+    output: true
+    permalink: /catalogo/lazos/:path/
+  especiales:
+    output: true
+    permalink: /catalogo/lazos/especiales/:path/
+  estacional:
+    output: true
+    permalink: /estacional/:path/

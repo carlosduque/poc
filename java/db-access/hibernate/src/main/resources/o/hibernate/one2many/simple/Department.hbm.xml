@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="o.hibernate.one2many.simple">
+
+    <class name="Department" table="DEPARTMENTS">
+        <id name="departmentId" type="java.lang.Long" column="DEP_ID">
+            <generator class="native" />
+        </id>
+        <property name="departmentName" column="DEP_NAME" />
+        <set name="employees" table="EMPLOYEES" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="DEP_ID" not-null="true" />
+            </key>
+            <one-to-many class="Employee" />
+        </set>
+    </class>
+
+</hibernate-mapping>

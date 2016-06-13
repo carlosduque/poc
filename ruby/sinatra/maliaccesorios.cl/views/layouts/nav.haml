@@ -1,0 +1,54 @@
+%nav.navbar.navbar-default.container.bg-danger
+  / Brand and toggle get grouped for better mobile display
+  .navbar-header
+    %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#mali-menu", "data-toggle" => "collapse", :type => "button"}
+      %span.sr-only Toggle navigation
+      %span.icon-bar
+      %span.icon-bar
+      %span.icon-bar
+    -#%a.navbar-brand{:href => '/root'}
+      -#%img{src: 'http://placehold.it/200x30'}
+  #mali-menu.collapse.navbar-collapse
+    %ul.nav.navbar-nav
+      %li
+        %a{:href => '/root'} Inicio
+      %li.dropdown
+        %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"} Catalogo
+        %ul.dropdown-menu
+          %li
+            %a{:href => '/cintillos'} Cintillos
+          %li
+            %a{:href => '/colet'} Colet
+          %li.divider{:role => "separator"}
+          %li.dropdown-header Lazos
+          %li
+            %a{:href => '/bebe'} Baby
+          %li
+            %a{:href => '/disenios'} Diseños
+          %li
+            %a{:href => '/solidos'} Solidos
+          %li.divider{:role => "separator"}
+          %li.dropdown-header Especiales
+          %li
+            %a{:href => '/ballet'} Ballet
+          %li
+            %a{:href => '/colegiales'} Colegiales
+          %li
+            %a{:href => '/princesas'} Princesas
+      %li.dropdown
+        %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"} Estacionales
+        %ul.dropdown-menu
+          %li
+            %a{:href => '/fiestas_patrias'} Fiestas Patrias
+          %li
+            %a{:href => '/navidad'} Navidad
+          %li
+            %a{:href => '/pascua'} Pascua
+          %li
+            %a{:href => '/san_valentin'} San Valentin
+    %ul.nav.navbar-nav.navbar-right
+      %li
+        %a{:href => '/acerca_de'} Quienes Somos
+      %li
+        %a{:href => '/contacto'} Contacto
+

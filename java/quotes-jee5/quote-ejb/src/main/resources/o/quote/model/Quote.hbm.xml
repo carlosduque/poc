@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="o.quote.model.Quote" table="Quotes">
+        <id name="id" column="Q_ID" />
+        <property name="quote" column="QUOTE" />
+        <property name="author" column="AUTHOR" />
+    </class>
+
+    <query name="Quote.findAll">
+        <![CDATA[
+        SELECT q FROM Quote q
+        ]]>
+    </query>
+
+    <sql-query name="Quote.findQuotesSP" callable="true">
+        <return alias="quote" class="o.quote.model.Quote">
+            <return-property name="id" column="Q_ID"/>
+            <return-property name="quote" column="QUOTE"/>
+            <return-property name="author" column="AUTHOR"/>
+        </return>
+        { call find_quotes(?) }
+    </sql-query>
+
+    <sql-query name="Quote.fetchQuotesF" callable="true">
+        <return alias="quote" class="o.quote.model.Quote">
+            <return-property name="id" column="Q_ID"/>
+            <return-property name="quote" column="QUOTE"/>
+            <return-property name="author" column="AUTHOR"/>
+        </return>
+        { ? = call fetch_quotes() }
+    </sql-query>
+
+</hibernate-mapping>

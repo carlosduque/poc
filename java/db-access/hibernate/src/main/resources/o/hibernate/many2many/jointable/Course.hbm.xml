@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="o.hibernate.many2many.jointable">
+    <class name="Course" table="COURSES">
+        <id name="courseId" column="COU_ID">
+            <generator class="native" />
+        </id>
+        <property name="courseDescription" column="COU_DESCRIPTION"/>
+
+        <set name="students" table="COURSES_STUDENTS" inverse="false" lazy="true" fetch="select" cascade="all">
+            <key column="COU_ID" />
+            <many-to-many column="STU_ID" class="Student" />
+        </set>
+    </class>
+</hibernate-mapping>

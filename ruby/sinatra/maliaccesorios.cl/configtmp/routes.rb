@@ -1,0 +1,18 @@
+Rails.application.routes.draw do
+  root                     'static_pages#inicio'
+  get 'acerca_de'       => 'static_pages#acerca_de'
+  get 'contacto'        => 'static_pages#contacto'
+  get 'cintillos'       => 'static_pages#cintillos'
+  get 'colet'           => 'static_pages#colet'
+  get 'bebe'            => 'static_pages#bebe'
+  get 'disenios'          => 'static_pages#disenios'
+  get 'solidos'         => 'static_pages#solidos'
+  get 'ballet'          => 'static_pages#ballet'
+  get 'colegiales'      => 'static_pages#colegiales'
+  get 'princesas'       => 'static_pages#princesas'
+  get 'estacionales'    => 'static_pages#estacionales'
+  get 'fiestas_patrias' => 'static_pages#fiestas_patrias'
+  get 'navidad'         => 'static_pages#navidad'
+  get 'pascua'          => 'static_pages#pascua'
+  get 'san_valentin'    => 'static_pages#san_valentin'
+end

@@ -1,0 +1,111 @@
+@import "bootstrap";
+
+@charset "utf-8";
+
+$text-color:       #d34d9c;
+$purple:           #b509ac;
+$light:            #fff;
+
+$grey-color-dark:  #333;
+$grey-color-light: #ddd;
+
+body {
+  color: $text-color;
+  background-image: url('bg.jpg');
+}
+
+@font-face {
+    font-family: 'SomeSugar2';
+    src: url('/assets/fonts/give_me_some_sugar_2.ttf') format('truetype');
+}
+
+.page-header {
+    font-family: 'SomeSugar2', Helvetica, Arial, sans-serif;
+}
+
+.info-box {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.bg-light {
+  background-color: $light;
+}
+
+.bg-alternative {
+  background-color: $purple;
+}
+
+.h1 .small, .h1 small, .h2 .small, .h2 small, .h3 .small, .h3 small, .h4 .small, .h4 small, .h5 .small, .h5 small, .h6
+.small, .h6 small, h1 .small, h1 small, h2 .small, h2 small, h3 .small, h3 small, h4 .small, h4 small, h5 .small, h5
+small, h6 .small, h6 small {
+  color: #c67ba5;
+}
+
+.navbar-default .navbar-nav {
+  li > a {
+    color: #fff;
+    background-color: #d34d9c;
+  }
+  .open > a:focus,
+  .open > a:hover {
+    background-color: #ae007b;
+  }
+}
+
+.dropdown-header {
+  color: #ffc6d2;
+  font-size: 16px;
+}
+
+.dropdown-menu {
+  background-color: #d34d9c;
+  li > a {
+    color: #fff;
+  }
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  background-color: #ae007b;
+  color: #fff;
+}
+
+.sub {
+  font-size: 12px;
+}
+
+.bg-danger {
+  background-color: #d34d9c;
+}
+
+.center {
+  text-align: center;
+}
+
+.one {
+  width:33.33%;
+}
+.two {
+  width: 66.66%;
+}
+.three {
+  width: 100%;
+}
+
+#site-bottom {
+    font-family: Helvetica, Arial, sans-serif;
+    color: $light;
+}
+
+#site-footer {
+    background-color: #333;
+    border-top: 1px solid #333;
+    bottom: 0;
+    color: #aaa;
+    font-size: 10px;
+    height: 25px;
+    left: 0;
+    padding: 2px;
+    position: fixed;
+    width: 100%;
+}

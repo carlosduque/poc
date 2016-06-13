@@ -1,0 +1,40 @@
+<ivy-module version="2.0">
+    <info organisation="cl.internetmedia" 
+      module="tracker-backend"
+      status="integration">
+      <ivyauthor name="Carlos Duque" url="http://www.internetmedia.cl/" />
+    </info>
+    <configurations>
+      <conf name="default" />
+      <conf name="compile" extends="default" visibility="private" />
+      <conf name="test" />
+    </configurations>
+
+    <publications>
+        <artifact name="tracker-backend" type="jar" ext="jar" conf="default" />
+    </publications>
+
+    <dependencies>
+        <dependency org="cl.internetmedia" name="tracker-common" rev="latest.integration" conf="compile->default" />
+        <dependency org="cl.internetmedia" name="tracker-business-delegate" rev="latest.integration" conf="compile->default" />
+
+        <dependency org="junit" name="junit" rev="4.10" conf="test->default" />
+
+        <dependency org="org.slf4j" name="slf4j-api" rev="1.7.2" conf="compile->default" />
+        <dependency org="ch.qos.logback" name="logback-classic" rev="1.0.9" conf="compile->default" />
+        <dependency org="ch.qos.logback" name="logback-core" rev="1.0.9" conf="compile->default" />
+
+        <dependency org="org.springframework" name="spring-core" rev="2.5.6" conf="compile->default" />
+        <dependency org="org.springframework" name="spring-context" rev="2.5.6" conf="compile->default" />
+        <dependency org="org.springframework" name="spring-aop" rev="2.5.6" conf="compile->default" />
+        <dependency org="org.springframework" name="spring-jdbc" rev="2.5.6" conf="compile->default" />
+        <dependency org="org.springframework" name="spring-orm" rev="2.5.6" conf="compile->default" />
+        
+        <dependency org="org.hsqldb" name="hsqldb" rev="2.2.9" conf="compile->default" />
+        <dependency org="org.hibernate" name="hibernate-core" rev="3.6.10.Final" conf="compile->default" />
+        <!-- dependency org="org.hibernate" name="hibernate-ehcache" rev="4.1.9.Final" conf="compile->default" /-->
+        <dependency org="com.mchange" name="c3p0" rev="0.9.2-pre8" conf="compile->default" />
+        <dependency org="javassist" name="javassist" rev="3.11.0.GA" conf="compile->default" />
+        
+    </dependencies>
+</ivy-module>

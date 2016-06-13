@@ -1,0 +1,43 @@
+package com.example.drools.resources.drl;
+
+impo.oo.drools.sandbox.Libraryryry;
+io.oo.drools.sandbox.Bookookook;
+impcom.example.drools.sandbox.BookTo.oo.drools.sandbox.Authorndbox.Authoruthor;
+
+rule "Book by author"
+	dialect "java"
+	//no-loop true
+	when
+		$a : Author()
+		$b : Book(author == $a)
+	then
+		System.out.println($b.getTitle() + ", written by "+ $a.getName() + " " + $a.getLastName());
+end
+
+rule "Technical book by author"
+	dialect "java"
+	//no-loop true
+	when
+		$a : Author()
+		$b : Book(author == $a, type == BookType.TECHNICAL)
+	then
+		System.out.println("TEC: " + $b.getTitle() + ", written by "+ $a.getName() + " " + $a.getLastName());
+end
+
+rule "Books newer than 2010-01-01"
+	dialect "java"
+	//no-loop true
+	when
+		$b : Book(pubDate >= "01-Jan-2010")
+	then
+		System.out.println($b.getTitle() + ", published "+ $b.getPubDate());
+end
+
+rule "positional arguments"
+	dialect "java"
+	//no-loop true
+	when
+		$b : Book()
+	then
+		System.out.println($b.getTitle());
+end

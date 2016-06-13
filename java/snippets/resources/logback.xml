@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+  <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+        <!-- %thread -->
+        <!-- %method -->
+        <!-- %replace(%msg){'\s', ''} -->
+        <!-- %20logger    Left pad with spaces if the logger name is less than 20 characters long. -->
+        <!-- %-20logger   Right pad with spaces if the logger name is less than 20 characters long. -->
+        <!-- %.30logger   Truncate from the beginning if the logger name is longer than 30 characters.-->
+        <!-- %.-30logger  Truncate from the end if the logger name is longer than 30 characters.-->
+      <pattern>%date{ISO8601}|%-5level|%thread|%-30(%logger{0})|%method|%line|%msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <root level="info">
+    <appender-ref ref="stdout"/>
+  </root>
+</configuration>

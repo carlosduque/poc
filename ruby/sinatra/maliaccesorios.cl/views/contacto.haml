@@ -1,0 +1,24 @@
+#main-container.container.bg-light
+  .row
+    .col-md-8.col-md-offset-2
+      %h3 Contacto:
+      %form
+        .form-group
+          %label{:for => "name"} Nombre:
+          %input#name.form-control{:placeholder => "name", :type => "text"}
+        .form-group
+          %label{:for => "email"} Correo:
+          %input#correo.form-control{:placeholder => "email", :type => "email"}
+        .form-group
+          %label{:for => "referer"} Referencia:
+          %select#referer.form-control.has-error
+            %option Una amiga/conocida
+            %option Hoja volante
+            %option Búsqueda en internet
+            %option Facebook
+            %option Otro
+        .form-group
+          %label{:for => "message"} Mensaje
+          %textarea#message.form-control{:rows => "3"}
+        %button#submit.btn.btn-default.btn-lg.btn-block.btn-info{:type => "submit"} Enviar
+      %br/

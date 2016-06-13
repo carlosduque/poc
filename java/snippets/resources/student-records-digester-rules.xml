@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE digester-rules PUBLIC "-//Jakarta Apache //DTD digester-rules XML V1.0//EN"
+		 "http://jakarta.apache.org/commons/digester/dtds/digester-rules.dtd">
+
+<!--
+Reglas de Digester para parsear el archivo student-records.xml
+cduque
+abr 10, 2007
+-->
+
+<digester-rules>
+        <object-create-rule pattern="db" classname="uni.server.DB" />        
+	<pattern value="db/registro">
+		<object-create-rule classname="uni.xml.Registro" />                    
+                <set-properties-rule>
+                    <alias attr-name="id" prop-name="id" />
+                </set-properties-rule>                    
+                <call-method-rule pattern="nombre" methodname="setNombre" paramcount="0" />                
+                <pattern value="talon">
+                    <object-create-rule classname="uni.xml.Talon" />
+                    <set-properties-rule>
+                      <alias attr-name="id" prop-name="id" />  
+                    </set-properties-rule>
+                    <set-properties-rule>
+                      <alias attr-name="fecha" prop-name="fecha" />  
+                    </set-properties-rule>
+                    <set-properties-rule>
+                      <alias attr-name="concepto" prop-name="concepto" />  
+                    </set-properties-rule>
+                    <set-properties-rule>
+                      <alias attr-name="monto" prop-name="monto" />  
+                    </set-properties-rule>
+                    <set-properties-rule>
+                      <alias attr-name="moneda" prop-name="moneda" />  
+                    </set-properties-rule>                
+                    <set-next-rule methodname="addTalon" paramtype="uni.xml.Talon" />
+                </pattern>                    
+                <set-next-rule methodname="addRegistro" paramtype="uni.xml.Registro" />
+        </pattern>
+</digester-rules>

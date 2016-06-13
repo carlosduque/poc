@@ -1,0 +1,20 @@
+package com.example.drools.resources.drl;
+
+imporo.oo.drools.cashflow.CashFlowow;
+impoo.oo.drools.cashflow.Accountunt;
+import com.example.drools.cashflow.AccountPeriod;
+
+rule "increase balance for credits"
+	dialect "java"
+	no-loop true
+	when
+		ap : AccountPeriod()
+		$acc : Account($accountNo : accountNo)
+		CashFlow(type == "CREDIT",
+				 accountNo == $accountNo,
+				 date >= ap.start && <= ap.end,
+				 $amount : amount)
+	then
+		modify($acc) {setBalance($acc.getBalance() + $amount)};
+		//acc.balance += $amount;
+end

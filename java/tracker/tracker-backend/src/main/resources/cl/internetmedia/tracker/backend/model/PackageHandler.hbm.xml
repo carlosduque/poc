@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="cl.internetmedia.tracker.backend.model.PackageHandler" table="package_handler">
+    <id name="id" type="long" column="id">
+      <!-- generator class="native" /-->
+      <generator class="sequence">
+        <param name="sequence">package_handler_seq</param>
+      </generator>
+    </id>
+    <property name="name" type="string" column="name" />
+	<property name="lastname" type="string" column="lastname" />
+    <property name="phonenumber" type="string" column="phonenumber" />
+  </class>
+
+  <query name="findByPhonenumber">
+    <![CDATA[
+	  from PackageHandler packageHandler
+      where packageHandler.phonenumber = :phonenumber
+    ]]>
+  </query>
+
+  <query name="findByLastname">
+    <![CDATA[
+      from PackageHandler packageHandler
+      where packageHandler.lastname = :lastname 
+    ]]>
+  </query>
+  
+</hibernate-mapping>

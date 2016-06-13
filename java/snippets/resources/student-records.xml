@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<db>
+
+	<registro id="0010543075">
+ 	    <nombre>00000000000000000000000000000000000000000000000VIENA MARIA OCHOA SUAZO</nombre>            
+            <talon id="0000021800" fecha="20010105" concepto="005" monto="00000000152500" moneda="001" />
+            <talon id="0000028759" fecha="20020204" concepto="038" monto="00000000130000" moneda="001" />
+            <talon id="0000032083" fecha="20030303" concepto="004" monto="00000000050000" moneda="001" />
+            <talon id="0000127774" fecha="20040402" concepto="007" monto="00000000142100" moneda="001" />            		
+	</registro>
+	
+	<registro id="0000998138">
+ 	    <nombre>0000000000000000000000000000000000000000DORIS IVETTE SALAZAR CASTELLON</nombre>
+            <talon id="0000232815" fecha="20060630" concepto="004" monto="00000000292030" moneda="001" />
+            <talon id="0000232825" fecha="20060730" concepto="006" monto="00000000350030" moneda="001" />
+            <talon id="0000232835" fecha="20060830" concepto="008" monto="00000000026050" moneda="001" />
+            <talon id="0000232845" fecha="20060930" concepto="055" monto="00000000292000" moneda="001" />
+            <talon id="0000232855" fecha="20061030" concepto="029" monto="00000000292000" moneda="001" />
+            <talon id="0000232865" fecha="20061130" concepto="014" monto="00000000150000" moneda="001" />
+            <talon id="0000232875" fecha="20061230" concepto="064" monto="00000000157500" moneda="001" />
+            <talon id="0000232885" fecha="20070110" concepto="060" monto="00000000092030" moneda="001" />
+            <talon id="0000232895" fecha="20070111" concepto="059" monto="00000000662000" moneda="001" />
+            <talon id="0000232905" fecha="20070112" concepto="047" monto="00000000732000" moneda="001" />
+            <talon id="0000232915" fecha="20070112" concepto="036" monto="00000000122000" moneda="001" />
+            <talon id="0000232925" fecha="20070112" concepto="029" monto="00000000092000" moneda="001" />
+            <talon id="0000232935" fecha="20070413" concepto="011" monto="00000000999000" moneda="001" />
+            <talon id="0000232945" fecha="20070513" concepto="013" monto="00000000213000" moneda="001" />
+            <talon id="0000232955" fecha="20070515" concepto="048" monto="00000000242000" moneda="001" />
+            <talon id="0000232965" fecha="20070615" concepto="062" monto="00000000052000" moneda="001" />
+            <talon id="0000232975" fecha="20070624" concepto="055" monto="00000000290000" moneda="001" />            
+	</registro>
+
+	<registro id="0000991411">
+ 	    <nombre>000000000000000000000000000000000000000JOSE ANTONIO CARRANZA RODRIGUEZ</nombre>
+            <talon id="0000069523" fecha="20061105" concepto="005" monto="00000000152500" moneda="001" />
+            <talon id="0000069524" fecha="20070105" concepto="025" monto="00000000007500" moneda="001" />
+            <talon id="0000069525" fecha="20071005" concepto="033" monto="00000000030000" moneda="001" />
+            <talon id="0000069526" fecha="20071105" concepto="011" monto="00000000050500" moneda="001" />
+            <talon id="0000069527" fecha="20071205" concepto="022" monto="00000000096300" moneda="001" />            
+	</registro>
+	
+	<registro id="0010613004">
+ 	    <nombre>000000000000000000000000000000000000000000ANGEL ANTONIO ROSA RODRIGUEZ</nombre>
+            <talon id="0000012345" fecha="20070425" concepto="044" monto="00000000060000" moneda="001" />
+            <talon id="0000012346" fecha="20070425" concepto="022" monto="00000000002500" moneda="001" />            	
+	</registro>
+	
+	<registro id="0020111163">
+ 	    <nombre>00000000000000000000000000000000000LIZZETTE ALEJANDRA CASTRO RODRIGUEZ</nombre>
+            <talon id="0000000000" fecha="20010105" concepto="005" monto="00000000152500" moneda="001" />
+            <talon id="0000002815" fecha="20060630" concepto="004" monto="00000000292030" moneda="001" />
+            <talon id="0000002825" fecha="20060730" concepto="006" monto="00000000350030" moneda="001" />
+            <talon id="0000002835" fecha="20060830" concepto="008" monto="00000000026050" moneda="001" />
+            <talon id="0000002845" fecha="20060930" concepto="055" monto="00000000292000" moneda="001" />
+            <talon id="0000002855" fecha="20061030" concepto="029" monto="00000000292000" moneda="001" />
+            <talon id="0000002865" fecha="20061130" concepto="014" monto="00000000150000" moneda="001" />
+            <talon id="0000002875" fecha="20061230" concepto="064" monto="00000000157500" moneda="001" />
+            <talon id="0000002885" fecha="20070110" concepto="060" monto="00000000092030" moneda="001" />
+            <talon id="0000002895" fecha="20070111" concepto="059" monto="00000000662000" moneda="001" />
+            <talon id="0000002905" fecha="20070112" concepto="047" monto="00000000732000" moneda="001" />
+            <talon id="0000002915" fecha="20070112" concepto="036" monto="00000000122000" moneda="001" />
+            <talon id="0000002925" fecha="20070112" concepto="029" monto="00000000092000" moneda="001" />
+            <talon id="0000002935" fecha="20070413" concepto="011" monto="00000000999000" moneda="001" />
+            <talon id="0000002945" fecha="20070513" concepto="013" monto="00000000213000" moneda="001" />
+            <talon id="0000002955" fecha="20070515" concepto="048" monto="00000000242000" moneda="001" />
+            <talon id="0000002965" fecha="20070615" concepto="062" monto="00000000052000" moneda="001" />
+            <talon id="0000002975" fecha="20070624" concepto="055" monto="00000000290000" moneda="001" />
+            <talon id="0000002815" fecha="20060630" concepto="004" monto="00000000292030" moneda="001" />
+            <talon id="0000002825" fecha="20060730" concepto="006" monto="00000000350030" moneda="001" />            		
+	</registro>
+        
+</db>

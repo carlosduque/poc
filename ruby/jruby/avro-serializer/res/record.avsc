@@ -1,0 +1,24 @@
+{
+  "type" : "record",
+  "name" : "Field",
+  "namespace" : "o.avro",
+  "fields" : [
+    {
+		"name" : "order",
+		"type"  : "int"
+    },
+    {
+        "name" : "name",
+        "type" : "string"
+    },
+    {
+        "name" : "alias",
+        "type" : "string"
+    },
+    {
+        "name" : "value",
+        "type" : "string"
+    }
+  ]
+}
+

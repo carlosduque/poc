@@ -1,0 +1,12 @@
+{
+  "type" : "record",
+  "name" : "Field",
+  "namespace" : "com.experian.precisematch.indexer.datasource.Field",
+  "fields" : [
+    {"name":"order", "type":"int"},
+    {"name":"name", "type":"string"},
+    {"name":"alias", "type":"string"},
+    {"name":"family", "type":"string", "default":""},
+    {"name":"value", "type":"string"}
+  ]
+}

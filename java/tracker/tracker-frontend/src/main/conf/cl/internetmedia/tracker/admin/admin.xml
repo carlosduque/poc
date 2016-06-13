@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="admin" namespace="/admin" extends="struts-default">
+
+    <action name="Add">
+      <result>/jsp/admin/package-handler/addForm.jsp</result>
+    </action>
+    <action name="List" method="list" class="cl.internetmedia.tracker.frontend.action.PackageHandlerAction">
+      <result>/jsp/admin/package-handler/list.jsp</result>
+    </action>    
+    <action name="Save" class="cl.internetmedia.tracker.frontend.action.PackageHandlerAction">
+      <result name="success">/jsp/admin/package-handler/registered.jsp</result>
+      <result name="input">/jsp/admin/package-handler/addForm.jsp</result>
+    </action>
+
+  </package>
+</struts>

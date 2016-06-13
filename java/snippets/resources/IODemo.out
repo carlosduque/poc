@@ -1,0 +1,103 @@
+1: //: c12:IOStreamDemo.java
+2: // Typical I/O stream configurations.
+3: // {RunByHand}
+4: // {Clean: IODemo.out,Data.txt,rtest.dat}
+5: // From 'Thinking in Java, 3rd ed.' (c) Bruce Eckel 2002
+6: // www.BruceEckel.com. See copyright notice in CopyRight.txt.
+7: package hn.alcros.io;
+8: import com.bruceeckel.simpletest.*;
+9: 
+10: import java.io.*;
+11: 
+12: public class IOStreamDemo {
+13:   private static Test monitor = new Test();
+14:   // Throw exceptions to console:
+15:   public static void main(String[] args)
+16:   throws IOException {
+17:     // 1. Reading input by lines:
+18:     BufferedReader in = new BufferedReader(
+19:       new FileReader("C:/Proyectos/workspace/Snippets/hn/alcros/io/IOStreamDemo.java"));
+20:     String s, s2 = new String();
+21:     while((s = in.readLine())!= null)
+22:       s2 += s + "\n";
+23:     in.close();
+24: 
+25:     // 1b. Reading standard input:
+26:     BufferedReader stdin = new BufferedReader(
+27:       new InputStreamReader(System.in));
+28:     System.out.print("Enter a line:");
+29:     System.out.println(stdin.readLine());
+30: 
+31:     // 2. Input from memory
+32:     StringReader in2 = new StringReader(s2);
+33:     int c;
+34:     while((c = in2.read()) != -1)
+35:       System.out.print((char)c);
+36: 
+37:     // 3. Formatted memory input
+38:     try {
+39:       DataInputStream in3 = new DataInputStream(
+40:         new ByteArrayInputStream(s2.getBytes()));
+41:       while(true)
+42:         System.out.print((char)in3.readByte());
+43:     } catch(EOFException e) {
+44:       System.err.println("End of stream");
+45:     }
+46: 
+47:     // 4. File output
+48:     try {
+49:       BufferedReader in4 = new BufferedReader(
+50:         new StringReader(s2));
+51:       PrintWriter out1 = new PrintWriter(
+52:         new BufferedWriter(new FileWriter("IODemo.out")));
+53:       int lineCount = 1;
+54:       while((s = in4.readLine()) != null )
+55:         out1.println(lineCount++ + ": " + s);
+56:       out1.close();
+57:     } catch(EOFException e) {
+58:       System.err.println("End of stream");
+59:     }
+60: 
+61:     // 5. Storing & recovering data
+62:     try {
+63:       DataOutputStream out2 = new DataOutputStream(
+64:         new BufferedOutputStream(
+65:           new FileOutputStream("Data.txt")));
+66:       out2.writeDouble(3.14159);
+67:       out2.writeUTF("That was pi");
+68:       out2.writeDouble(1.41413);
+69:       out2.writeUTF("Square root of 2");
+70:       out2.close();
+71:       DataInputStream in5 = new DataInputStream(
+72:         new BufferedInputStream(
+73:           new FileInputStream("Data.txt")));
+74:       // Must use DataInputStream for data:
+75:       System.out.println(in5.readDouble());
+76:       // Only readUTF() will recover the
+77:       // Java-UTF String properly:
+78:       System.out.println(in5.readUTF());
+79:       // Read the following double and String:
+80:       System.out.println(in5.readDouble());
+81:       System.out.println(in5.readUTF());
+82:     } catch(EOFException e) {
+83:       throw new RuntimeException(e);
+84:     }
+85: 
+86:     // 6. Reading/writing random access files
+87:     RandomAccessFile rf =
+88:       new RandomAccessFile("rtest.dat", "rw");
+89:     for(int i = 0; i < 10; i++)
+90:       rf.writeDouble(i*1.414);
+91:     rf.close();
+92:     rf = new RandomAccessFile("rtest.dat", "rw");
+93:     rf.seek(5*8);
+94:     rf.writeDouble(47.0001);
+95:     rf.close();
+96:     rf = new RandomAccessFile("rtest.dat", "r");
+97:     for(int i = 0; i < 10; i++)
+98:       System.out.println("Value " + i + ": " +
+99:         rf.readDouble());
+100:     rf.close();
+101:     monitor.expect("C:/Proyectos/workspace/Snippets/hn/alcros/io/IOStreamDemo.out");
+102:   }
+103: } ///:~

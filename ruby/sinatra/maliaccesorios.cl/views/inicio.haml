@@ -1,0 +1,58 @@
+#main-container.container.bg-light
+  .row
+    .col-md-10.col-md-offset-1
+      #main-slider.carousel.slide{"data-ride" => "carousel"}
+        / Indicators
+        %ol.carousel-indicators
+          %li.active{"data-slide-to" => "0", "data-target" => "#main-slider"}
+          %li{"data-slide-to" => "1", "data-target" => "#main-slider"}
+          %li{"data-slide-to" => "2", "data-target" => "#main-slider"}
+        .carousel-inner{:role => "listbox"}
+          .item.active
+            %img{src: '/assets/images/collage-001-1040x360.png'}
+            -#%img{src: '/assets/images/http://placehold.it/1040x360/'}
+            .carousel-caption Caption number 1
+          .item
+            -#%img{src: '/assets/images/collage-002.png}
+            %img{src: '/assets/images/collage-002-1040x360.png'}
+            .carousel-caption Caption number 2
+          .item
+            -#%img{src: '/assets/images/collage-003.png}
+            %img{src: '/assets/images/collage-003-1040x360.png'}
+            .carousel-caption Caption number 3
+        %a.left.carousel-control{"data-slide" => "prev", :href => "#main-slider", :role => "button"}
+          %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true"}
+          %span.sr-only Previous
+        %a.right.carousel-control{"data-slide" => "next", :href => "#main-slider", :role => "button"}
+          %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true"}
+          %span.sr-only Next
+  .row
+    %hr/
+  .row
+    .col-md-4
+      .thumbnail
+        %img{src: '/assets/images/img-laz-dis-003.jpg', class:'two img-rounded img-thumbnail center-block'}
+        .caption
+          %h3 Thumbnail label
+          %p Lorem ipsum dolor sit amet...
+          %p
+            %a.btn.btn-primary{:href => "#", :role => "button"} Button
+            %a.btn.btn-default{:href => "#", :role => "button"} Button
+    .col-md-4
+      .thumbnail
+        %img{src: '/assets/images/img-laz-baby-001.jpg'}
+        .caption
+          %h3 Thumbnail label
+          %p Lorem ipsum dolor sit amet...
+          %p
+            %a.btn.btn-primary{:href => "#", :role => "button"} Button
+            %a.btn.btn-default{:href => "#", :role => "button"} Button
+    .col-md-4
+      .thumbnail
+        %img{src: '/assets/images/img0016-thumbnail.jpg'}
+        .caption
+          %h3 Thumbnail label
+          %p Lorem ipsum dolor sit amet...
+          %p
+            %a.btn.btn-primary{:href => "#", :role => "button"} Button
+            %a.btn.btn-default{:href => "#", :role => "button"} Button

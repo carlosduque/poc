@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:util="http://www.springframework.org/schema/util"
+    
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+  <!-- ********************************************************************* -->
+  <!-- ************************* Backend ************************ -->
+  <!-- ********************************************************************* -->
+  <import resource="ctx-rmi-services.xml" />
+  <import resource="ctx-database.xml" />
+  <!-- import resource="ctx-messages.xml" / -->
+  
+  <util:properties id="settingsFile" location="classpath:settings.properties" />
+    
+  <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="locations">
+      <list>
+        <value>classpath:rmi-services.properties</value>
+        <value>classpath:jdbc.properties</value>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="packageHandlerServiceImpl" class="cl.internetmedia.tracker.backend.service.impl.PackageHandlerServiceImpl">
+    <property name="packageHandlerDao" ref="packageHandlerDaoImpl"/>
+  </bean>
+  
+  <bean id="trackingHistoryServiceImpl" class="cl.internetmedia.tracker.backend.service.impl.TrackingHistoryServiceImpl">
+    <property name="trackingHistoryDao" ref="trackingHistoryDaoImpl"/>
+  </bean>
+
+</beans>

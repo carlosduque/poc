@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="o.quote.model.quote" table="quotes">
+    <id name="id" type="long" column="id">
+      <!-- generator class="native" /-->
+      <generator class="sequence">
+        <param name="sequence">quotes_seq</param>
+      </generator>
+    </id>
+    <property name="quote" type="string" column="quote" />
+    <property name="author" type="string" column="author" />
+  </class>
+
+  <query name="findByAuthor">
+    <![CDATA[
+      from Quote quote
+      where quote.author = :author
+    ]]>
+  </query>
+
+</hibernate-mapping>

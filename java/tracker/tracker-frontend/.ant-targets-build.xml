@@ -1,0 +1,13 @@
+clean
+compile
+compile-tests
+default
+deploy
+init
+ivy-init
+ivy-publish
+ivy-report
+package-jar
+package-tests
+test
+war

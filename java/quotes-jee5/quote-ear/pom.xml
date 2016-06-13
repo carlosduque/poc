@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>o</groupId>
+        <artifactId>quote</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>quote-ear</artifactId>
+    <packaging>ear</packaging>
+
+    <name>Quote EAR</name>
+
+    <dependencies>
+        <!-- Depend on the ejb module and war so that we can package them -->
+        <dependency>
+            <groupId>o</groupId>
+            <artifactId>quote-web</artifactId>
+            <type>war</type>
+        </dependency>
+
+        <dependency>
+            <groupId>o</groupId>
+            <artifactId>quote-ejb</artifactId>
+            <type>ejb</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.10</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>${project.parent.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>${version.ear.plugin}</version>
+                <configuration>
+                    <version>5</version>
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
+                    <modules>
+                    <!-- Default context root of the web app is /quote-web.
+                        If a custom context root is needed, uncomment the following snippet to
+                        register our War as a web module and set the contextRoot property -->
+	                    <webModule>
+	                        <groupId>o</groupId>
+	                        <artifactId>quote-web</artifactId>
+	                        <contextRoot>/quotes</contextRoot>
+	                    </webModule>
+
+                    </modules>
+                    <fileNameMapping>no-version</fileNameMapping>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>

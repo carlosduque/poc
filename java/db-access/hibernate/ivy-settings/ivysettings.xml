@@ -1,0 +1,17 @@
+<ivysettings>
+  <properties file="${ivy.settings.dir}/ivysettings.properties"/>
+  <settings defaultResolver="libraries" />
+  <caches defaultCacheDir="${repository.dir}/ivy-cache" />
+  <resolvers>
+    <filesystem name="projects">
+      <artifact pattern="${repository.dir}/[module]/[artifact]-[revision].[ext]" />
+      <ivy pattern="${repository.dir}/[module]/ivy-[revision].xml" />
+    </filesystem>
+    <ibiblio name="libraries" m2compatible="true" usepoms="true" />
+    <!--ibiblio name="3rd-party-primefaces" m2compatible="true" root="http://repository.primefaces.org" usepoms="false" /-->
+  </resolvers>
+  <modules>
+    <module organisation="o.hibernate" name="*" resolver="projects" />
+    <!--module organisation="org.primefaces" name="primefaces" resolver="3rd-party-primefaces" /-->
+  </modules>
+</ivysettings>

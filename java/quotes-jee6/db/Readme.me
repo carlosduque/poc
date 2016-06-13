@@ -1,0 +1,14 @@
+# Quotes Database
+
+Create a postgreSQL table with the following:
+
+## Sequence
+create sequence quotes_seq start 1;
+
+## Table
+create table quotes (
+  integer primary key default nextval('quotes_seq'),
+  quote varchar(150) not null,
+  author varchar(50) not null
+);
+
