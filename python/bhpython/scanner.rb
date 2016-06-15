@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require 'socket'
 
 def connect(host = "localhost", port = 80)
