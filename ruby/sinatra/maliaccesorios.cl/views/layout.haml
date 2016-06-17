@@ -6,11 +6,9 @@
     %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
 
     %title= 'Mali Accesorios'
+    %link(rel="stylesheet" type="text/css" href='/stylesheets/bootstrap.css')
     %link(rel="stylesheet" type="text/css" href='/stylesheets/app.css')
 
-    %script(src="/js/jquery-3.0.0.min.js")
-    %script(src="/js/bootstrap.min.js")
-    %script(src="/js/app.js")
     = haml :'layouts/shim'
   %body
     -#= haml 'layouts/header_nav'
@@ -19,3 +17,7 @@
     = yield
     = haml :'layouts/bottom'
     = haml :'layouts/footer'
+    %script(src="/js/jquery-3.0.0.min.js")
+    %script(src="/js/bootstrap.js")
+    %script(src="/js/app.js")
+
