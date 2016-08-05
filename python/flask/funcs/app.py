@@ -3,6 +3,10 @@ import datetime
 
 app = Flask(__name__)
 
+@app.route("/")
+def root():
+    return "<h1>Welcome to <em>Flask !</em></h1>"
+
 @app.route("/fibonacci/<n>")
 def calculate_fibonacci(n=0):
     return render_template('fibonacci.html', num=fibonacci(int(n)))
@@ -14,7 +18,6 @@ def calculate_factorial(num):
 @app.route("/current/time")
 def current_time():
     return render_template("time.html", t=datetime.datetime.now())
-
 
 def fibonacci(n):
     if (n <= 2):
