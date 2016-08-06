@@ -12,11 +12,11 @@ class Fraction:
         """ add fractions """
         n = self.num * other.den + self.den * other.num
         d = self.den * other.den
-        common = gcd(n, d)
+        common = self.__gcd(n, d)
 
         return Fraction(n // common, d // common)
 
-    def __gcd(m, n):
+    def __gcd(self, m, n):
         while m % n != 0:
             old_m = m
             old_n = n
