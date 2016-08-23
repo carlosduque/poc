@@ -14,22 +14,40 @@ class BST:
 
     def __init__(self):
         self.root = None
-        self.n = 0
 
     def put(self, key, value):
-        print "key: %s, value: %s" % (key, value)
         self.root = self.__put(self.root, key, value)
+        print "self.root: %s" % (self.root)
 
     def __put(self, root, k, v):
-        print ":: root: %s, k: %s, v: %s" % (root, k, v)
         if root is None:
+            print "node(%s, %s)" % (k, v)
             return self.Node(k, v)
 
-        if k == root.key:
-            root.val = v
+        x = root
+        while x is not None:
+            if k < x.key:
+                print "k:%s < x.key:%s" % (k, x.key)
+                x.left = self.__put(x.left, k, v)
+            elif k > x.key:
+                print "k:%s > x.key:%s" % (k, x.key)
+                x.right = self.__put(x.right, k, v)
+            else:
+                print "%s = %s" % (k, v)
+                x.val = v
+            return x
 
-    def get(self, key):
-        return nil
+    def get(self, k):
+        x = self.root
+        while x is not None:
+            if k < x.key:
+                x = x.left
+            elif k > x.key:
+                x = x.right
+            else:
+                return x.val
+
+        return None
 
     def delete(self, key):
         pass
