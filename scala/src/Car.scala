@@ -7,11 +7,12 @@ class Car(val year : Int, var miles : Int) {
   }
 }
 
-val car = new Car(2011, 0)
-println(car.year)
-println(car.getYear())
-println(car.miles)
-car.drive(10)
-println(car.miles)
-car drive 10
-println(car.miles)
+//val car = new Car(2011, 0)
+//println(car.year)
+//println(car.getYear())
+//println(car.miles)
+//car.drive(10)
+//println(car.miles)
+//car drive 10
+//println(car.miles)
+
