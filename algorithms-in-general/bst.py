@@ -10,7 +10,7 @@ bst.put('b', 'batman')
 """
 class BST:
     """
-    Nodes for the binary tree
+    Nodes for the binary tree.
     """
     class Node:
         def __init__(self, key, value):
@@ -18,66 +18,104 @@ class BST:
             self.val = value
             self.right = None
             self.left = None
-            self.size = 0
+            self.size = 1
         def __str__(self):
-            return "%s=%s, sz=%s" % (self.key, self.val, self.size)
+            return "(%s=%s, sz=%s)" % (self.key, self.val, self.size)
 
     def __init__(self):
         self.root = None
 
     def put(self, key, value):
+        """
+        Put a new key=value pair in the tree.
+        :param key: the key to insert/update
+        :param value: the value to store
+        :return: nothing
+        """
         self.root = self._put(self.root, key, value)
 
     def _put(self, root, k, v):
+        """
+        Traverses node to node starting at the root, going left or right according to the key
+        until it finds a null spot where it creates the new node and takes it's place.
+        :param root: The root of the tree or current subtree
+        :param k: the key to insert
+        :param v: the value to store
+        :return: the node's parent
+        """
         if root is None:
-            return self.Node(k, v)
+            new_node = self.Node(k, v)
+            #print "adding %s" % new_node
+            return new_node
 
-        x = root
-        while x is not None:
-            if k < x.key:
-                x.left = self._put(x.left, k, v)
-            elif k > x.key:
-                x.right = self._put(x.right, k, v)
+        node = root
+        while node is not None:
+            if k < node.key:
+                node.left = self._put(node.left, k, v)
+            elif k > node.key:
+                node.right = self._put(node.right, k, v)
             else:
-                x.val = v
-            x.size = 1 + self._size(x.left) + self._size(x.right)
-            return x
+                node.val = v
+            node.size = 1 + self._size(node.left) + self._size(node.right)
+            #print "returning %s" % (node)
+            return node
 
     def get(self, k):
-        x = self.root
-        while x is not None:
-            if k < x.key:
-                x = x.left
-            elif k > x.key:
-                x = x.right
+        """
+        Retrieve a value stored with the given key.
+        :param k: The key used to search
+        :return: the value stored with the given key
+        """
+        node = self.root
+        while node is not None:
+            if k < node.key:
+                node = node.left
+            elif k > node.key:
+                node = node.right
             else:
-                return x.val
+                return node.val
         return None
 
     def delete(self, key):
         pass
 
     def contains(self, key):
+        """
+        Check if the given key exists in the tree
+        :param key: the key to search for
+        :return: True if the key exists in the tree, False otherwise
+        """
         if key is None:
             return None
         return self.get(key) is not None
 
     def is_empty(self):
+        """
+        Check if the tree is empty
+        :return: True if the tree is empty, False otherwise
+        """
         return self.root is None
 
     def size(self):
+        """
+        Return the size of the tree.
+        :return: The tree's size
+        """
         return self._size(self.root)
 
     def _size(self, node):
+        """
+        Return the current node's subtree size
+        :param node: The node to check
+        :return: zero if the node is null, the size of the subtree otherwise
+        """
         if node is None:
             return 0
         return node.size
 
-    def curr_root(self):
-        return str(self.root)
-
     def keys(self):
-        return None
+        list = []
+        return list
 
     """
     Minimum and maximum. If the left link of the root is null, the smallest key in a
