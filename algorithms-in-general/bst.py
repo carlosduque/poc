@@ -18,9 +18,9 @@ class BST:
             self.val = value
             self.right = None
             self.left = None
-            self.size = 1
+            self.count = 1
         def __str__(self):
-            return "(%s=%s, sz=%s)" % (self.key, self.val, self.size)
+            return "(%s=%s, count=%s)" % (self.key, self.val, self.count)
 
     def __init__(self):
         self.root = None
@@ -45,7 +45,6 @@ class BST:
         """
         if root is None:
             new_node = self.Node(k, v)
-            #print "adding %s" % new_node
             return new_node
 
         node = root
@@ -56,8 +55,7 @@ class BST:
                 node.right = self._put(node.right, k, v)
             else:
                 node.val = v
-            node.size = 1 + self._size(node.left) + self._size(node.right)
-            #print "returning %s" % (node)
+            node.count = 1 + self._size(node.left) + self._size(node.right)
             return node
 
     def get(self, k):
@@ -111,11 +109,19 @@ class BST:
         """
         if node is None:
             return 0
-        return node.size
+        return node.count
 
     def keys(self):
-        list = []
-        return list
+        queue = []
+        self._traverse(self.root, queue)
+        return queue
+
+    def _traverse(self, node, queue):
+        if node is None:
+            return
+        self._traverse(node.left, queue)
+        queue.append(node.key)
+        self._traverse(node.right, queue)
 
     """
     Minimum and maximum. If the left link of the root is null, the smallest key in a
