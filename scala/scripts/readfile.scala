@@ -1,4 +1,6 @@
+#!/usr/bin/env scala
+
 import io.Source
 
 Source.fromFile(args(0)).getLines.foreach{line => println(line)}
-println(":: read " + args(0) +" ::")
+println(s":: read ${args(0)} ::")
