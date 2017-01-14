@@ -1,0 +1,42 @@
+Update twitter via curl
+curl --basic -u user:pass -d status="Tweeting from the shell" http://twitter.com/statuses/update.xml
+
+Serve current directory tree at http://$HOSTNAME:8000/
+python -m SimpleHTTPServer
+
+download all phrack issues
+curl http://www.phrack.org/archives/tgz/phrack[1-67].tar.gz -o phrack#1.tar.gz
+
+quickly backup or copy a file with bash
+cp filename{,.bak}
+
+output your microphone to a remote computer's speaker
+dd if=/dev/dsp | ssh -c arcfour -C username@host dd of=/dev/dsp
+
+Mount folder/filesystem through SSH
+sshfs name@server:/path/to/folder /path/to/mount/point
+
+Capture video of a linux desktop
+ffmpeg -f x11grab -s wxga -r 25 -i :0.0 -sameq /tmp/out.mpg
+
+Copy ssh keys to user@host to enable password-less ssh logins.
+$ssh-copy-id user@host
+
+start a tunnel from some machine's port 80 to your local post 2001
+ssh -N -L2001:localhost:80 somemachine
+
+Mount a temporary ram partition
+mount -t tmpfs tmpfs /mnt -o size=1024m
+
+A very simple and useful stopwatch
+time read (ctrl-d to stop)
+
+A fun thing to do with ram is actually open it up and take a peek. This command will show you all the string (plain text) values in ram
+sudo dd if=/dev/mem | cat | strings
+
+Push your present working directory to a stack that you can pop later
+pushd /tmp
+
+
+nc -w 5 -v -l -p 80 < file.ext
+Sharing file through http 80 port

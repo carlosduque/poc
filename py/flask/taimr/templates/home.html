@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Taimr</title>
+    </head>
+    <header>
+        <h1>Taimr <em>registra tu tiempo...</em></h1>
+    </header>
+    <section>
+      <h2>Registrar tiempo {{ time }}</h2>
+      <form action="/taimr/entries" method="post">
+          <label for="time">Tiempo:</label>
+          <input name="time" type="datetime" />
+          <button type="submit">Guardar</button>
+      </form>
+    </section>
+    <footer>
+        <nav>
+            <ul>
+                <li>Acerca de</li>
+            </ul>
+        </nav>
+    </footer>
+</html>
