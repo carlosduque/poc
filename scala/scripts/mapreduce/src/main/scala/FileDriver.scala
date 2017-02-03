@@ -1,39 +1,32 @@
 package o.mapred
 
-import org.apache.hadoop.conf.Configured
 import org.apache.hadoop.fs.Path
-import org.apache.hadoop.io.{IntWritable,Text}
-import org.apache.hadoop.mapred.{FileInputFormat, FileOutputFormat, JobClient, JobConf}
-import org.apache.hadoop.util.{Tool, ToolRunner}
+import org.apache.hadoop.io.{IntWritable, Text}
+import org.apache.hadoop.mapreduce.Job
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat
 
-object FileDriver extends Configured  with Tool {
-
-  override def run(args: Array[String]):Int = {
-    if (args.length != 2) {
-        println(s"Usage: %s [generic options] <input> <output>\n", getClass().getSimpleName())
-       ToolRunner.printGenericCommandUsage(Console.err)
-       -1
-    }
-
-    val conf:JobConf = new JobConf(this.getConf(), this.getClass())
-    conf.setJobName("Max temperature")
-
-    FileInputFormat.addInputPath(conf, new Path(args(0)))
-    FileOutputFormat.setOutputPath(conf, new Path(args(1)))
-
-    conf.setOutputKeyClass(classOf[Text])
-    conf.setOutputValueClass(classOf[IntWritable])
-
-    conf.setMapperClass(classOf[FileMapper])
-    conf.setCombinerClass(classOf[FileReducer])
-    conf.setReducerClass(classOf[FileReducer])
-
-    JobClient.runJob(conf)
-    return 0
-  }
+object FileDriver {
 
   def main(args: Array[String]): Unit = {
-    ToolRunner.run(FileDriver, args)
+    if (args.length != 2) {
+      println(s"Usage: %s [generic options] <input> <output>\n", getClass().getSimpleName())
+      System.exit(-1)
+    }
+
+    val job: Job = new Job()
+    job.setJobName("Max temperature")
+
+    FileInputFormat.addInputPath(job, new Path(args(0)))
+    FileOutputFormat.setOutputPath(job, new Path(args(1)))
+
+    job.setOutputKeyClass(classOf[Text])
+    job.setOutputValueClass(classOf[IntWritable])
+
+    job.setMapperClass(classOf[FileMapper])
+    job.setReducerClass(classOf[FileReducer])
+
+    System.exit(if (job.waitForCompletion(true)) 0 else 1)
   }
 
 }

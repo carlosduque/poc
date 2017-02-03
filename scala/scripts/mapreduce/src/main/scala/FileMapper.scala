@@ -1,21 +1,17 @@
 package o.mapred
 
-import java.io.IOException
-
 import org.apache.hadoop.io.{IntWritable, LongWritable, Text}
-import org.apache.hadoop.mapred.{MapReduceBase, Mapper, OutputCollector, Reporter}
+import org.apache.hadoop.mapreduce.Mapper
 
-class FileMapper extends MapReduceBase
-    with Mapper[LongWritable, Text, Text, IntWritable] {
+class FileMapper extends Mapper[LongWritable, Text, Text, IntWritable] {
 
-    override def map(key: LongWritable,
-      value:Text,
-      output: OutputCollector[Text, IntWritable],
-      reporter:Reporter):Unit = {
+    override def map(key: LongWritable, value: Text, context: Mapper[LongWritable, Text, Text, IntWritable]#Context): Unit = {
         val line = value.toString()
-        val year = line.substring(15, 19)
-        val airTemperature = line.substring(87, 92).toInt
-        output.collect(new Text(year), new IntWritable(airTemperature))
+        //val year = line.substring(0, 4)
+        //val airTemperature = line.substring(5, 7).toInt
+        val year = line.take(4)
+        val airTemperature = line.drop(5).toInt
+        context.write(new Text(year), new IntWritable(airTemperature))
     }
 
 }
