@@ -127,4 +127,51 @@
   (.setColor gfx (java.awt.Color. xor xor xor))
   (.fillRect gfx x y 1 1))
 
+(def a 1.0e50)
+(def b -1.0e50)
+(def c 17.0e00)
 
+(+ (+ a b) c)
+(+ a (+ b c))
+
+(def aa (rationalize 1.0e50))
+(def bb (rationalize -1.0e50))
+(def cc (rationalize 17.0e00))
+
+(+ (+ aa bb) cc)
+(+ aa (+ bb cc))
+
+;;keywords
+(def population {:zombies 2700 :humans 9})
+(get population :zombies)
+(:humans population)
+
+(defn pour [lb ub]
+  (cond
+    (= ub :toujours) (iterate inc lb)
+    :else (range lb ub)))
+
+(pour 1 10)
+
+(take 5 (pour 1 :toujours))
+
+;namespace
+(defn do-blowfish [directive]
+  (case directive
+    :aquarium/blowfish  (println "feed the fish")
+    :crypto/blowfish    (println "encode the message")
+    :blowfish           (println "not sure what to do")))
+
+(ns crypto)
+(sandbox.core/do-blowfish :blowfish)
+
+(sandbox.core/do-blowfish ::blowfish)
+
+(ns aquarium)
+(sandbox.core/do-blowfish :blowfish)
+
+(sandbox.core/do-blowfish ::blowfish)
+
+;regex
+(re-seq #"\w+"     "one-two/three")
+(re-seq #"\w*(\w)" "one-two/three")
