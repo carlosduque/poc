@@ -360,9 +360,9 @@ lst2
                :R (xconj (:R t) v)}))
 
 (def tree1 (xconj nil 5))
-tree1
+(tree1)
 (def tree1 (xconj tree1 3))
-tree1
+(tree1)
 (def tree1 (xconj tree1 2))
 
 (defn xseq [t]
@@ -374,4 +374,55 @@ tree1
 (xseq tree2)
 (identical? (:L tree1) (:L tree2))
 
-;; lazyness go to page 127
+;; lazyness
+(defn lz-rec-step [s]
+  (lazy-seq
+            (if (seq s)
+              [(first s) (lz-rec-step (rest s))]
+              [])))
+
+(lz-rec-step [1 2 3 4]))
+(class (lz-rec-step [1 2 3 4]))
+
+(defn triangle [n]
+  (/ (* n (+ n 1)) 2))
+
+(triangle 10)
+
+(map triangle (range 1 11))
+
+(def tri-nums (map triangle (iterate inc 1)))
+(take 10 tri-nums)
+(take 10 (filter even? tri-nums))
+(nth tri-nums 99)
+(double (reduce + (take 1000 (map / tri-nums))))
+(take 2 (drop-while #(< % 10000) tri-nums))
+
+;; quicksort
+(defn rand-ints [n]
+  (take n (repeatedly #(rand-int n))))
+
+(rand-ints 10)
+
+(defn sort-parts [work]
+  (lazy-seq
+            (loop [[part & parts] work] 
+              (if-let [[pivot & xs] (seq part)]
+                (let [smaller? #(< % pivot)]
+                  (recur (list*
+                               (filter smaller? xs)
+                               pivot
+                               (remove smaller? xs)
+                               parts)))
+                (when-let [[x & parts] parts]
+                  (cons x (sort-parts parts)))))))
+
+(defn qsort [xs]
+  (sort-parts (list xs)))
+
+(qsort [2 1 4 3])
+(qsort (rand-ints 20))
+
+;;continue on chap7 p136
+
+
