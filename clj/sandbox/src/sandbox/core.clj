@@ -215,7 +215,7 @@ a-to-j
    [4 5 6]
    [7 8 9]])
 (get-in matrix [1 2])
-(assoc-in matri [1 2] 'x)
+(assoc-in matrix [1 2] 'x)
 (update-in matrix [1 2] * 100)
 
 (defn neighbors
@@ -224,7 +224,7 @@ a-to-j
                         yx))
   ([deltas size yx]
    (filter (fn [new-yx]
-             (every? #(< -1 % size) new-x))
+             (every? #(< -1 % size) new-yx))
            (map #(vec (map + yx %))
                 deltas))))
 
@@ -242,7 +242,7 @@ a-to-j
 (first {:width 10 :height 20 :depth 15})
 (vector? (first {:width 10 :height 20 :depth 15}))
 
-(doseq [[dimenson amount] {:width 10 :height 20 :depth 15}]
+(doseq [[dimension amount] {:width 10 :height 20 :depth 15}]
   (println (str (name dimension) ":") amount "inches"))
 
 ;; lists
@@ -258,7 +258,7 @@ a-to-j
   (print-method '-< w))
 
 (def schedule
-  (conj clojure.lang.PersintentQueue/EMPTY
+  (conj clojure.lang.PersistentQueue/EMPTY
         :wake-up :shower :brush-teeth))
 
 (peek schedule)
@@ -282,7 +282,7 @@ a-to-j
 (sorted-set :b :c :a)
 (sorted-set [3 4] [1 2])
 
-(require 'clojure.set))
+(require 'clojure.set)
 ;(ns my.cool.lib
 ;  (:require clojure.set))
 
@@ -300,10 +300,10 @@ a-to-j
                    #{:pez :skor :pocky}
                    #{:pocky :gum :skor})
 
-(clojere.set/difference #{1 2 3 4} #{3 4 5 6})
+(clojure.set/difference #{1 2 3 4} #{3 4 5 6})
 
 ;;maps
-(hash-map :a 1, :b 2, :c 3, :d 4, :e )
+(hash-map :a 1, :b 2, :c 3, :d 4, :e 5)
 (let [m {:a 1 1 :b [1 2 3] "4 5 6"}]
   [(get m :a) (get m [1 2 3])])
 
@@ -315,13 +315,13 @@ a-to-j
 
 (sorted-map :thx 1138 :r2d 2)
 (sorted-map "bac" 2 "abc" 9)
-(sorted-map-by #(compare (subs 1 1) (sus %2 1)) "bac" 2 "abc" 9)
+(sorted-map-by #(compare (subs %1 1) (subs %2 1)) "bac" 2 "abc" 9)
 
 (assoc {1 :int} 1.0 :float)
 
 ;;keeping order
-(seq (hash-map :a 1 : 2 :c 3))
-(seq (array-map :a 1 : 2 :c 3))
+(seq (hash-map :a 1 :b 2 :c 3))
+(seq (array-map :a 1 :b 2 :c 3))
 
 (defn index [coll]
   (cond
@@ -329,12 +329,12 @@ a-to-j
     (set? coll) (map vector coll coll)
     :else (map vector (iterate inc 0) coll)))
 
-(index [:a 1 :b 2 .c 3 :d 4])
-(index {:a 1 :b 2 .c 3 :d 4})
+(index [:a 1 :b 2 :c 3 :d 4])
+(index {:a 1 :b 2 :c 3 :d 4})
 (index #{:a 1 :b 2 :c 3 :d 4})
 
 (defn pos [e coll]
-  (for [[i v] (index coll) :whn (= e v)] i))
+  (for [[i v] (index coll) :when (= e v)] i))
 
 (defn pos [pred coll]
   (for [[i v] (index coll) :when (pred v)] i))
@@ -360,9 +360,9 @@ lst2
                :R (xconj (:R t) v)}))
 
 (def tree1 (xconj nil 5))
-(tree1)
+tree1
 (def tree1 (xconj tree1 3))
-(tree1)
+tree1
 (def tree1 (xconj tree1 2))
 
 (defn xseq [t]
@@ -381,7 +381,7 @@ lst2
               [(first s) (lz-rec-step (rest s))]
               [])))
 
-(lz-rec-step [1 2 3 4]))
+(lz-rec-step [1 2 3 4])
 (class (lz-rec-step [1 2 3 4]))
 
 (defn triangle [n]
@@ -448,7 +448,7 @@ lst2
 
 ;; reverse truth with complement
 (let [truthiness (fn [v] v)]
-  [((comlpement truthiness) true)
+  [((complement truthiness) true)
    ((complement truthiness) 42)
    ((complement truthiness) false)
    ((complement truthiness) nil)])
@@ -474,9 +474,9 @@ lst2
 (sort [[1 2 3] [-1 0 1] [3 2 1]])
 (sort > [7 1 4])
 ;;will throw a cast class exception
-(sort ["z" "x" "a" "aa" 1 5 8])
-
-(sort [{:age 99} {:age 13} {:age 7}])
+;;(sort ["z" "x" "a" "aa" 1 5 8])
+;;throws persistent array map cast exception
+;;(sort [{:age 99} {:age 13} {:age 7}])
 
 (sort-by second [[:a 7] [:c 13] [:b 21]])
 (sort-by str ["z" "x" "a" "aa" 1 5 8])
@@ -488,16 +488,16 @@ lst2
             {:band "Magma"      :plays 2665 :loved 31}])
 
 (def sort-by-loved-ratio (partial sort-by #(/ (:plays %) (:loved %))))
-(sort-by-loved-ration plays)
-
-;;functions as return values
-(sort-by (columns [:plays :loved :band]) plays)
+(sort-by-loved-ratio plays)
 
 (defn columns [column-names]
   (fn [row]
     (vec (map row column-names))))
 
 (columns [:plays :loved :band])
+
+;;functions as return values
+(sort-by (columns [:plays :loved :band]) plays)
 
 ((columns [:plays :loved :band])
  {:band "Burial" :plays 979 :loved 9})
@@ -532,7 +532,8 @@ lst2
   (/ (- (p2 1) (p1 1))
      (- (p2 0) (p1 0))))
 
-(slope2 [10 10] [10 10])
+;;assertion fails
+;;(slope2 [10 10] [10 10])
 
 ;;closures
 (def times-two
