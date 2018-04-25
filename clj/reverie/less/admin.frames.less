@@ -1,0 +1,36 @@
+.controlpanel {
+    margin: 0;
+    padding: 0;
+    .table.small {
+        width: 400px;
+        input, select {
+            width: 100%;
+        }
+        th {
+            width: 100px;
+        }
+    }
+    div.error {
+        color: @brand-error;
+    }
+    span[type=richtext], span[type=image] {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    textarea {
+        width: 100%;
+        height: 200px;
+    }
+    .buttons {
+        margin: 12px 0 0 12px;
+        #save {
+            margin-right: 12px;
+        }
+    }
+}
+
+
+.hidden {
+    display: none;
+}
