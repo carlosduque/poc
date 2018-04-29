@@ -1,0 +1,26 @@
+#files {
+    i[class^="icon-"] {
+        margin-right: 10px;
+        font-size: 1.5em;
+        color: @primary;
+    }
+    i[class=icon-folder-close] {
+        position: relative;
+        top: 3px;
+    }
+    span {
+        display: block;
+        &.active, &:hover, &.selected {
+            cursor: pointer;
+            color: @primary;
+        }
+        img {
+            margin-left: 15px;
+        }
+    }
+    a {
+        &:hover {
+            color: @primary;
+        }
+    }
+}
