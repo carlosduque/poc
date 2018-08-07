@@ -78,10 +78,8 @@
    :css-dirs ["resources/public/css"]
    :ring-handler reagent-example.handler/app}
 
-
-
   :profiles {:dev {:repl-options {:init-ns reagent-example.repl
-                                  :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
+                                  :nrepl-middleware [cider.piggieback/wrap-cljs-repl]}
 
                    :dependencies [[binaryage/devtools "0.9.10"]
                                   [ring/ring-mock "0.3.2"]
@@ -90,13 +88,10 @@
                                   [figwheel-sidecar "0.5.16"]
                                   [nrepl "0.4.4"]
                                   [cider/piggieback "0.3.8"]
-                                  [pjstadig/humane-test-output "0.8.3"]
-                                  
- ]
+                                  [pjstadig/humane-test-output "0.8.3"]]
 
                    :source-paths ["env/dev/clj"]
-                   :plugins [[lein-figwheel "0.5.16"]
-]
+                   :plugins [[lein-figwheel "0.5.16"]]
 
                    :injections [(require 'pjstadig.humane-test-output)
                                 (pjstadig.humane-test-output/activate!)]
