@@ -35,6 +35,7 @@
   (GET "/lu" [] (loading-page))
   (GET "/tc" [] (loading-page))
   (GET "/c"  [] (loading-page))
+  (GET "/bmi"  [] (loading-page))
   (resources "/")
   (not-found "Not Found"))
 
