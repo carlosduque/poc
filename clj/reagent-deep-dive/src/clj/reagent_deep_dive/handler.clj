@@ -29,8 +29,10 @@
 
 (defroutes routes
   (GET "/" [] (loading-page))
-  (GET "/about" [] (loading-page))
-  
+  ;;this routes only needed if you need to type the url
+  ;;(GET "/simple-button" [] (loading-page))
+  ;;(GET "/simple-form" [] (loading-page))
+
   (resources "/")
   (not-found "Not Found"))
 
