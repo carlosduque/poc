@@ -15,6 +15,8 @@
    [:div [:a {:href "/counter"} "go to counter page"]]
    [:div [:a {:href "/waldo"} "go to waldo page"]]
    [:div [:a {:href "/reaction"} "go to reaction (sorting as reaction) page"]]
+   [:div [:a {:href "/func-ret-func"} "go to func-ret-func (mousetraps) page"]]
+   [:div [:a {:href "/with-let"} "go to with-let page"]]
    ])
 
 (defn simple-button []
@@ -114,6 +116,53 @@
    [:p (pr-str @sorted-rolls)]
    [:p (pr-str (reverse @sorted-rolls))]])
 
+;;part II
+(defn a-better-mouse-trap [mouse]
+  (let [mice (reagent/atom 1)]
+    (fn render-mouse-trap [mouse]
+      (into
+        [:div
+         [:button
+          {:on-click
+           (fn [e]
+             (swap! mice (fn [m] (inc (mod m 4)))))}
+          "Catch!"]]
+        (repeat @mice mouse)))))
+(defn mouse-trap []
+  [:div
+   [a-better-mouse-trap
+    [:img
+     {:src "https://www.domyownpestcontrol.com/images/content/mouse.jpg"
+      :style {:width "150px" :border "1px solid"}}]]
+   [a-better-mouse-trap
+    [:img
+     {:src "https://avatars1.githubusercontent.com/u/9254615?v=3&s=150"
+      :style {:border "1px solid"}}]]])
+
+(defn lambda [rotation x y]
+  [:g {:transform (str "translate(" x "," y ")"
+                       "rotate(" rotation ") ")}
+   [:circle {:r 50, :fill "green"}]
+   [:circle {:r 25, :fill "blue"}]
+   [:path {:stroke-width 12
+           :stroke "white"
+           :fill "none"
+           :d "M -45,-35 C 25,-35 -25,35 45,35 M 0,0 -45,45"}]])
+
+(defn spinnable []
+  (reagent/with-let [rotation (reagent/atom 0)]
+    [:svg
+     {:width 150 :height 150
+      :on-mouse-move
+      (fn [e]
+        (swap! rotation + 30))}
+     [lambda @rotation 75 75]]))
+
+(defn several-spinnables []
+  [:div
+   [:h3 "Move your mouse over me"]
+   [a-better-mouse-trap [spinnable]]])
+
 ;; -------------------------
 ;; Routes
 (defonce page (atom #'home-page))
@@ -144,6 +193,13 @@
 
 (secretary/defroute "/reaction" []
   (reset! page #'sorted-d20))
+
+;;part II
+(secretary/defroute "/func-ret-func" []
+  (reset! page #'mouse-trap))
+
+(secretary/defroute "/with-let" []
+  (reset! page #'several-spinnables))
 ;; -------------------------
 ;; Initialize app
 (defn mount-root []
