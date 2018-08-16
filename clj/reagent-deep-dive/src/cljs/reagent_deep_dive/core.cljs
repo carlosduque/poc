@@ -12,6 +12,9 @@
    [:div [:a {:href "/simple-form"} "go to simple-form page"]]
    [:div [:a {:href "/concentric-circles"} "go to concentric-circles page"]]
    [:div [:a {:href "/many-circles"} "go to many-circles page"]]
+   [:div [:a {:href "/counter"} "go to counter page"]]
+   [:div [:a {:href "/waldo"} "go to waldo page"]]
+   [:div [:a {:href "/reaction"} "go to reaction (sorting as reaction) page"]]
    ])
 
 (defn simple-button []
@@ -64,6 +67,53 @@
                      "translate(100)")}
        [concentric-circles]])))
 
+(def c (reagent/atom 1))
+(defn counter []
+  [:div
+   [:div "Current counter value: " @c]
+   [:button
+    {:disabled (>= @c 4)
+     :on-click
+     (fn clicked [e]
+       (swap! c inc))}
+    "inc"]
+   [:button
+    {:disabled (<= @c 1)
+     :on-click
+     (fn clicked [e]
+       (swap! c dec))}
+    "dec"]
+   (into [:div] (repeat @c [concentric-circles]))])
+
+(defn waldo []
+   (let [show? (reagent/atom false)]
+     (fn w []
+       [:div
+        (if @show?
+          [:div
+           [:h3 "You found me!"]
+           [:img
+            {:src "https://goo.gl/EzvMNp"
+             :style {:height "320px"}}]]
+          [:div
+           [:h3 "Where are you now?"]
+           [:img
+            {:src "https://i.ytimg.com/vi/HKMlPDwmTYM/maxresdefault.jpg"
+             :style {:height "320px"}}]])
+        [:button
+         {:on-click
+          (fn [e]
+            (swap! show? not))}
+         (if @show? "reset" "search")]])))
+
+(def rolls (reagent/atom [1 2 3 4]))
+(def sorted-rolls (reagent.ratom/reaction (sort @rolls)))
+(defn sorted-d20 []
+  [:div
+   [:button {:on-click (fn [e] (swap! rolls conj (rand-int 20)))} "Roll!"]
+   [:p (pr-str @sorted-rolls)]
+   [:p (pr-str (reverse @sorted-rolls))]])
+
 ;; -------------------------
 ;; Routes
 (defonce page (atom #'home-page))
@@ -86,9 +136,14 @@
 (secretary/defroute "/many-circles" []
   (reset! page #'many-circles))
 
-(secretary/defroute "/many-circles" []
-  (reset! page #'many-circles))
+(secretary/defroute "/counter" []
+  (reset! page #'counter))
 
+(secretary/defroute "/waldo" []
+  (reset! page #'waldo))
+
+(secretary/defroute "/reaction" []
+  (reset! page #'sorted-d20))
 ;; -------------------------
 ;; Initialize app
 (defn mount-root []
