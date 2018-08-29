@@ -17,7 +17,9 @@
    [:div [:a {:href "/reaction"} "go to reaction (sorting as reaction) page"]]
    [:div [:a {:href "/func-ret-func"} "go to func-ret-func (mousetraps) page"]]
    [:div [:a {:href "/with-let"} "go to with-let page"]]
-   ])
+   [:div [:a {:href "/announcement"} "go to announcement page"]]
+   [:div [:a {:href "/mouse-pos"} "go to mouse-pos page"]]
+   [:div [:a {:href "/three-canvas"} "go to three-canvas page"]]])
 
 (defn simple-button []
   [:div#my-button.my-class1.my-class2 [:h2 "reagent-deep-dive:simple-button"]
@@ -163,6 +165,46 @@
    [:h3 "Move your mouse over me"]
    [a-better-mouse-trap [spinnable]]])
 
+(defn announcement []
+  (reagent/create-class
+   {:reagent-render
+    (fn []
+      [:h3 "I for one welcome our new insect overlords."])}))
+
+(defn mouse-position []
+  (reagent/with-let [pointer (reagent/atom nil)
+                     handler (fn [e]
+                               (swap! pointer assoc
+                                      :x (.-pageX e)
+                                      :y (.-pageY e)))
+                     _ (js/document.addEventListener "mousemove" handler)]
+                    [:div "Pointer moved to: " (str @pointer)]
+                    (finally
+                      (js/document.removeEventListener "mousemove" handler))))
+
+(defn create-renderer [element]
+  (doto (js/THREE.WebGLRenderer. #js {:canvas element :antialias true})
+    (.setPixelRatio js/window.devicePixelRatio)))
+
+(defn three-canvas [attributes camera scene tick]
+  (let [requested-animation (atom nil)]
+    (reagent/create-class
+     {:display-name "three-canvas"
+      :reagent-render
+      (fn three-canvas-render []
+        [:canvas attributes])
+      :component-did-mount
+      (fn three-canvas-did-mount [this]
+        (let [e (reagent/dom-node this)
+              r (create-renderer e)]
+          ((fn animate []
+             (tick)
+             (.render r scene camera)
+             (reset! requested-animation (js/window.requestAnimationFrame animate))))))
+      :component-will-unmount
+      (fn [this]
+        (js/window.cancelAnimationFrame @requested-animation))})))
+
 ;; -------------------------
 ;; Routes
 (defonce page (atom #'home-page))
@@ -200,6 +242,15 @@
 
 (secretary/defroute "/with-let" []
   (reset! page #'several-spinnables))
+
+(secretary/defroute "/mouse-pos" []
+                    (reset! page #'mouse-position))
+
+(secretary/defroute "/announcement" []
+                    (reset! page #'announcement))
+
+(secretary/defroute "/three-canvas" []
+                    (reset! page #'three-canvas))
 ;; -------------------------
 ;; Initialize app
 (defn mount-root []
