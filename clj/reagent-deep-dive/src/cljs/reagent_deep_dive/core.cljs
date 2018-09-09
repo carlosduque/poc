@@ -1,7 +1,8 @@
 (ns reagent-deep-dive.core
     (:require [reagent.core :as reagent :refer [atom]]
               [secretary.core :as secretary :include-macros true]
-              [accountant.core :as accountant]))
+              [accountant.core :as accountant]
+              [cljsjs.three :as THREE]))
 
 ;; -------------------------
 ;; Views
@@ -17,7 +18,11 @@
    [:div [:a {:href "/reaction"} "go to reaction (sorting as reaction) page"]]
    [:div [:a {:href "/func-ret-func"} "go to func-ret-func (mousetraps) page"]]
    [:div [:a {:href "/with-let"} "go to with-let page"]]
-   ])
+   [:div [:a {:href "/announcement"} "go to announcement page"]]
+   [:div [:a {:href "/mouse-pos"} "go to mouse-pos page"]]
+   ;[:div [:a {:href "/vendor"} "go to lambda-3d page"]]
+   [:div [:a {:href "/vendor"} "go to lambda-3d page"]]])
+
 
 (defn simple-button []
   [:div#my-button.my-class1.my-class2 [:h2 "reagent-deep-dive:simple-button"]
@@ -163,6 +168,108 @@
    [:h3 "Move your mouse over me"]
    [a-better-mouse-trap [spinnable]]])
 
+(defn announcement []
+  (reagent/create-class
+   {:reagent-render
+    (fn []
+      [:h3 "I for one welcome our new insect overlords."])}))
+
+(defn mouse-position []
+  (reagent/with-let [pointer (reagent/atom nil)
+                     handler (fn [e]
+                               (swap! pointer assoc
+                                      :x (.-pageX e)
+                                      :y (.-pageY e)))
+                     _ (js/document.addEventListener "mousemove" handler)]
+                    [:div "Pointer moved to: " (str @pointer)]
+                    (finally
+                      (js/document.removeEventListener "mousemove" handler))))
+
+;(defn create-renderer [element]
+;  (doto (js/THREE.WebGLRenderer. #js {:canvas element :antialias true})
+;    (.setPixelRatio js/window.devicePixelRatio)))
+
+;(defn three-canvas [attributes camera scene tick]
+;  (let [requested-animation (atom nil)]
+;    (reagent/create-class
+;     {:display-name "three-canvas"
+;      :reagent-render
+;      (fn three-canvas-render []
+;        [:canvas attributes])
+;      :component-did-mount
+;      (fn three-canvas-did-mount [this]
+;        (let [e (reagent/dom-node this)
+;              r (create-renderer e)]
+;          ((fn animate []
+;             (tick)
+;             (.render r scene camera)
+;             (reset! requested-animation (js/window.requestAnimationFrame animate))))))
+;      :component-will-unmount
+;      (fn [this]
+;        (js/window.cancelAnimationFrame @requested-animation))})))
+
+;(defn create-scene[]
+;  (doto (js/THREE.Scene.)
+;        (.add (js/THREE.AmbientLight. 0x888888))
+;        (.add (doto (js/THREE.DirectionalLight. 0xffff88 0.5)
+;                    (-> (.-position) (.set -600 300 600))))
+;        (.add (js/THREE.AxisHelper. 50))))
+
+;(defn mesh [geometry color]
+;  (js/THREE.SceneUtils.createMultiMaterialObject.
+;      geometry
+;      #js [(js/THREE.MeshBasicMaterial. #js {:color color :wireframe true})
+;           (js/THREE.MeshLambertMaterial. #js {:color color})]))
+
+;(defn fly-around-z-axis [camera scene]
+;  (let [t (* (js/Date.now) 0.0002)]
+;    (doto camera)))
+;          (-> (.-position) (.set (* 100 (js/Math.cos t)) (* 100 (js/Math.sin t)) 100))
+;          (.lookAt (.-position scene)))))
+
+;(defn v3 [x y z]
+;  (js/THREE.Vector3. x y z))
+
+;(defn lambda-3d []
+;  (let [camera (js/THREE.PerspectiveCamera. 45 1 1 2000)
+;        curve (js/THREE.CubicBezierCurve3.
+;               (v3 -30 -30 10)
+;               (v3 0 -30 10)
+;               (v3 0 30 10)
+;               (v3 30 30 10))
+;        path-geometry (js/THREE.TubeGeometry. curve 20 4 8 false)
+;        scene (doto (create-scene)
+;                    (.add
+;                     (doto (mesh (js/THREE.CylinderGeometry. 40 40 5 24) "green")
+;                           (-> (.-rotation) (.set (/ js/Math.PI 2) 0 0))))
+;                    (.add
+;                     (doto (mesh (js/THREE.CylinderGeometry. 20 20 10 24) "blue")
+;                           (-> (.-rotation) (.set (/ js/Math.PI 2) 0 0))))
+;                    (.add (mesh path-geometry "white")))
+;        tick (fn []
+;               (fly-around-z-axis camera scene))]
+;    [three-canvas {:width 150 :height 150} camera scene tick]))
+
+;(defn vendor []
+;  [:div [lambda-3d]])
+
+;lifecyle
+;(defn puppy [x]
+;  (log "puppy created, x:" x)
+;  (let [mouse-over? (reagent/atom false)]
+;    (fn [y]
+;      (log "puppy rendered, x:" x " y:" y " mouse-over?:" @mouse-over?)
+;      [:span {:on-mouse-over (fn [e] (reset! mouse-over? true))
+;              :on-mouse-out (fn [e] (reset! mouse-over? false))}
+;       [:img {:src "https://goo.gl/fMzXOU"
+;              :style {:width "150px"
+;                      :border "1px solid"
+;                      :transform (str "scale(" (if @mouse-over? 1.1 1) ")")}}]])))
+;(defn lifecyle-review []
+;  (reagent/with-let [x (reagent/atom "1")]
+;                    [:id [:label "type in a value for x: "
+;                          [:input {:on-change (fn [e] (reset! x (.. e -target -value)))}]]
+;                     [with-log [a-better-mouse-trap [puppy @x]]]]))
 ;; -------------------------
 ;; Routes
 (defonce page (atom #'home-page))
@@ -200,6 +307,15 @@
 
 (secretary/defroute "/with-let" []
   (reset! page #'several-spinnables))
+
+(secretary/defroute "/mouse-pos" []
+                    (reset! page #'mouse-position))
+
+(secretary/defroute "/announcement" []
+                    (reset! page #'announcement))
+
+;(secretary/defroute "/vendor" []
+;                    (reset! page #'vendor))
 ;; -------------------------
 ;; Initialize app
 (defn mount-root []
