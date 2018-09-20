@@ -88,10 +88,7 @@
                                   [prone "1.5.2"]
                                   [figwheel-sidecar "0.5.16"]
                                   [nrepl "0.4.4"]
-                                  [cider/piggieback "0.3.8"]
                                   [pjstadig/humane-test-output "0.8.3"]]
-
-
 
                    :source-paths ["env/dev/clj"]
                    :plugins [[lein-figwheel "0.5.16"]]

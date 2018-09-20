@@ -1,8 +1,9 @@
 (ns reagent-deep-dive.core
-    (:require [reagent.core :as reagent :refer [atom]]
-              [secretary.core :as secretary :include-macros true]
-              [accountant.core :as accountant]
-              [cljsjs.three :as THREE]))
+  (:require [reagent.core :as reagent :refer [atom]]
+            [secretary.core :as secretary :include-macros true]
+            [accountant.core :as accountant]
+            [clojure.string :as string]
+            [cljsjs.three :as THREE]))
 
 ;; -------------------------
 ;; Views
@@ -21,8 +22,7 @@
    [:div [:a {:href "/announcement"} "go to announcement page"]]
    [:div [:a {:href "/mouse-pos"} "go to mouse-pos page"]]
    ;[:div [:a {:href "/vendor"} "go to lambda-3d page"]]
-   [:div [:a {:href "/vendor"} "go to lambda-3d page"]]])
-
+   [:div [:a {:href "/scribble"} "go to scribble page"]]])
 
 (defn simple-button []
   [:div#my-button.my-class1.my-class2 [:h2 "reagent-deep-dive:simple-button"]
@@ -39,7 +39,7 @@
      (fn [e]
        (.preventDefault e)
        (js/alert
-         (str "You said: " (.. e -target -elements -message -value))))}
+        (str "You said: " (.. e -target -elements -message -value))))}
     [:label
      "Say something:"
      [:input
@@ -62,17 +62,17 @@
 
 (defn many-circles []
   (into
-    [:svg {:style {:border "1px solid"
-                   :background "white"
-                   :width "600px"
-                   :height "600px"}}]
-    (for [i (range 12)]
-      [:g
-       {:transform (str
-                     "translate(300,300) "
-                     "rotate(" (* i 30) ") "
-                     "translate(100)")}
-       [concentric-circles]])))
+   [:svg {:style {:border "1px solid"
+                  :background "white"
+                  :width "600px"
+                  :height "600px"}}]
+   (for [i (range 12)]
+     [:g
+      {:transform (str
+                   "translate(300,300) "
+                   "rotate(" (* i 30) ") "
+                   "translate(100)")}
+      [concentric-circles]])))
 
 (def c (reagent/atom 1))
 (defn counter []
@@ -93,25 +93,25 @@
    (into [:div] (repeat @c [concentric-circles]))])
 
 (defn waldo []
-   (let [show? (reagent/atom false)]
-     (fn w []
-       [:div
-        (if @show?
-          [:div
-           [:h3 "You found me!"]
-           [:img
-            {:src "https://goo.gl/EzvMNp"
-             :style {:height "320px"}}]]
-          [:div
-           [:h3 "Where are you now?"]
-           [:img
-            {:src "https://i.ytimg.com/vi/HKMlPDwmTYM/maxresdefault.jpg"
-             :style {:height "320px"}}]])
-        [:button
-         {:on-click
-          (fn [e]
-            (swap! show? not))}
-         (if @show? "reset" "search")]])))
+  (let [show? (reagent/atom false)]
+    (fn w []
+      [:div
+       (if @show?
+         [:div
+          [:h3 "You found me!"]
+          [:img
+           {:src "https://goo.gl/EzvMNp"
+            :style {:height "320px"}}]]
+         [:div
+          [:h3 "Where are you now?"]
+          [:img
+           {:src "https://i.ytimg.com/vi/HKMlPDwmTYM/maxresdefault.jpg"
+            :style {:height "320px"}}]])
+       [:button
+        {:on-click
+         (fn [e]
+           (swap! show? not))}
+        (if @show? "reset" "search")]])))
 
 (def rolls (reagent/atom [1 2 3 4]))
 (def sorted-rolls (reagent.ratom/reaction (sort @rolls)))
@@ -126,13 +126,13 @@
   (let [mice (reagent/atom 1)]
     (fn render-mouse-trap [mouse]
       (into
-        [:div
-         [:button
-          {:on-click
-           (fn [e]
-             (swap! mice (fn [m] (inc (mod m 4)))))}
-          "Catch!"]]
-        (repeat @mice mouse)))))
+       [:div
+        [:button
+         {:on-click
+          (fn [e]
+            (swap! mice (fn [m] (inc (mod m 4)))))}
+         "Catch!"]]
+       (repeat @mice mouse)))))
 (defn mouse-trap []
   [:div
    [a-better-mouse-trap
@@ -156,12 +156,12 @@
 
 (defn spinnable []
   (reagent/with-let [rotation (reagent/atom 0)]
-    [:svg
-     {:width 150 :height 150
-      :on-mouse-move
-      (fn [e]
-        (swap! rotation + 30))}
-     [lambda @rotation 75 75]]))
+                    [:svg
+                     {:width 150 :height 150
+                      :on-mouse-move
+                      (fn [e]
+                        (swap! rotation + 30))}
+                     [lambda @rotation 75 75]]))
 
 (defn several-spinnables []
   [:div
@@ -270,6 +270,20 @@
 ;                    [:id [:label "type in a value for x: "
 ;                          [:input {:on-change (fn [e] (reset! x (.. e -target -value)))}]]
 ;                     [with-log [a-better-mouse-trap [puppy @x]]]]))
+
+;;part IV
+(def my-drawing (atom []))
+(swap! my-drawing conj [50 100 150 100])
+(defn scribble1 [drawing]
+  (into
+   [:svg
+    {:width "100%"
+     :height 200
+     :stroke "black"
+     :fill "none"}]
+   (for [[x y & more-options] @drawing]
+     [:path {:d (str "M " x " " y " L " (string/join " " more-options))}])))
+(defn scribble [] [scribble1 my-drawing])
 ;; -------------------------
 ;; Routes
 (defonce page (atom #'home-page))
@@ -278,35 +292,35 @@
   [:div [@page]])
 
 (secretary/defroute "/" []
-  (reset! page #'home-page))
+                    (reset! page #'home-page))
 
 (secretary/defroute "/simple-button" []
-  (reset! page #'simple-button))
+                    (reset! page #'simple-button))
 
 (secretary/defroute "/simple-form" []
-  (reset! page #'simple-form))
+                    (reset! page #'simple-form))
 
 (secretary/defroute "/concentric-circles" []
-  (reset! page #'concentric-circles))
+                    (reset! page #'concentric-circles))
 
 (secretary/defroute "/many-circles" []
-  (reset! page #'many-circles))
+                    (reset! page #'many-circles))
 
 (secretary/defroute "/counter" []
-  (reset! page #'counter))
+                    (reset! page #'counter))
 
 (secretary/defroute "/waldo" []
-  (reset! page #'waldo))
+                    (reset! page #'waldo))
 
 (secretary/defroute "/reaction" []
-  (reset! page #'sorted-d20))
+                    (reset! page #'sorted-d20))
 
 ;;part II
 (secretary/defroute "/func-ret-func" []
-  (reset! page #'mouse-trap))
+                    (reset! page #'mouse-trap))
 
 (secretary/defroute "/with-let" []
-  (reset! page #'several-spinnables))
+                    (reset! page #'several-spinnables))
 
 (secretary/defroute "/mouse-pos" []
                     (reset! page #'mouse-position))
@@ -316,6 +330,11 @@
 
 ;(secretary/defroute "/vendor" []
 ;                    (reset! page #'vendor))
+
+;part IV
+(secretary/defroute "/scribble" []
+                    (reset! page #'scribble))
+
 ;; -------------------------
 ;; Initialize app
 (defn mount-root []
@@ -323,11 +342,11 @@
 
 (defn init! []
   (accountant/configure-navigation!
-    {:nav-handler
-     (fn [path]
-       (secretary/dispatch! path))
-     :path-exists?
-     (fn [path]
-       (secretary/locate-route path))})
+   {:nav-handler
+    (fn [path]
+      (secretary/dispatch! path))
+    :path-exists?
+    (fn [path]
+      (secretary/locate-route path))})
   (accountant/dispatch-current!)
   (mount-root))
