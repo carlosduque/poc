@@ -748,36 +748,71 @@ tree1
 
 (defn astar [start-yx step-est cell-costs]
     (let [size (count cell-costs)]
-    (loop [steps 0
-        routes (vec (replicate size (vec (replicate size nil))))
-        work-todo (sorted-set [0 start-yx])]
-        (if (empty? work-todo)
-        [(peek (peek routes)) :steps steps]
-        (let [[_ yx :as work-item] (first work-todo)
-        rest-work-todo (disj work-todo work-item)
-        nbr-yxs (neighbors size yx)
-        cheapest-nbr (min-by :cost
-            (keep #(get-in routes %)
-            nbr-yxs))
-        newcost (path-cost (get-in cell-costs yx)
-            cheapest-nbr)
-        oldcost (:cost (get-in routes yx))]
-    (if (and oldcost (>= newcost oldcost))
-        (recur (inc steps) routes rest-work-todo)
-        (recur (inc steps)
-        (assoc-in routes yx
-            {:cost newcost
-             :yxs (conj (:yxs cheapest-nbr [])
-                yx)})
-        (into rest-work-todo
-            (map
-                (fn [w]
-                    (let [[y x] w]
-                        [(total-cost newcost step-est size y x) w]))
-                nbr-yxs))))))))))
+        (loop [steps 0
+            routes (vec (replicate size (vec (replicate size nil))))
+            work-todo (sorted-set [0 start-yx])]
+            (if (empty? work-todo)
+            [(peek (peek routes)) :steps steps]
+            (let [[_ yx :as work-item] (first work-todo)
+            rest-work-todo (disj work-todo work-item)
+            nbr-yxs (neighbors size yx)
+            cheapest-nbr (min-by :cost
+                (keep #(get-in routes %)
+                nbr-yxs))
+            newcost (path-cost (get-in cell-costs yx)
+                cheapest-nbr)
+            oldcost (:cost (get-in routes yx))]
+        (if (and oldcost (>= newcost oldcost))
+            (recur (inc steps) routes rest-work-todo)
+            (recur (inc steps)
+            (assoc-in routes yx
+                {:cost newcost
+                 :yxs (conj (:yxs cheapest-nbr [])
+                    yx)})
+            (into rest-work-todo
+                (map
+                    (fn [w]
+                        (let [[y x] w]
+                            [(total-cost newcost step-est size y x) w]))
+                    nbr-yxs))))))))))
 
 (astar [0 0]
     900
     world)
 
 ;;ch8: macros
+(defn contextual-eval [ctx expr]
+    (eval
+        `(let [~@(mapcat (fn [[k v]] [k `'~v]) ctx)]
+        ~expr)))
+(contextual-eval '{a 1, b 2} '(+ a b))
+(contextual-eval '{a 1, b 2} '(let [b 1000] (+ a b)))
+
+;;a bit more of macros should be here
+
+;;ch9. multipmethods
+(def unix {:os ::unix :c-compiler "cc" :home "/home" :dev "/dev"})
+(defmulti home :os)
+(defmethod home ::unix [m] (get m :home))
+(home unix)
+(derive ::osx ::unix)
+(home osx)
+(parents ::osx)
+(ancestors ::osx)
+(descendants ::unix)
+(isa? ::osx ::unix)
+(isa? ::unix ::osx)
+
+;;resolving conflicts
+(derive ::osx ::bsd)
+(defmethod home ::bsd [m] "/home")
+(home osx)
+(prefer-method home ::unix ::bsd)
+(home osx)
+(remove-method home ::bsd)
+(home osx)
+
+(def each-math (juxt + * - /))
+(each-math 2 3)
+
+;;ch 9.3, types, protocols and records
