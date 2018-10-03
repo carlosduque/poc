@@ -1,4 +1,4 @@
-(ns sandbox.core)
+(ns joc.core)
 
 ;;anonymous function for creating a set
 ((fn [x y]
@@ -163,14 +163,14 @@
     :blowfish           (println "not sure what to do")))
 
 (ns crypto)
-(sandbox.core/do-blowfish :blowfish)
+(joc.core/do-blowfish :blowfish)
 
-(sandbox.core/do-blowfish ::blowfish)
+(joc.core/do-blowfish ::blowfish)
 
 (ns aquarium)
-(sandbox.core/do-blowfish :blowfish)
+(joc.core/do-blowfish :blowfish)
 
-(sandbox.core/do-blowfish ::blowfish)
+(joc.core/do-blowfish ::blowfish)
 
 ;regex
 (re-seq #"\w+"     "one-two/three")

@@ -1,4 +1,4 @@
-(ns sandbox.core)
+(ns joc.core)
 
 ;;interop
 (defn xors [max-x max-y]

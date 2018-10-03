@@ -1,4 +1,4 @@
-(ns sandbox.core)
+(ns joc.core)
 
 ;regex
 (re-seq #"\w+"     "one-two/three")

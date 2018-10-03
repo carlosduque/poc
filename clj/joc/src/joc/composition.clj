@@ -1,4 +1,4 @@
-(ns sandbox.core)
+(ns joc.core)
 
 (map [:chthon :phthor :beowulf :grendel] #{0 3})
 

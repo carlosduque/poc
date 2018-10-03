@@ -1,4 +1,4 @@
-(ns sandbox.core)
+(ns joc.core)
 
 ;; recursion
 (defn print-down-from [x]

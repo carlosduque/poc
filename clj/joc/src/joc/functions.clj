@@ -1,4 +1,4 @@
-(ns sandbox.core)
+(ns joc.core)
 
 ;;anonymous function for creating a set
 ((fn [x y]

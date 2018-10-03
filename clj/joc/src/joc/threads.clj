@@ -1,4 +1,4 @@
-(ns cli-foo.thread-sandbox
+(ns cli-foo.thread-joc
   (:require [org.clojure/core.async "0.4.474"])
   (:gen-class))
 

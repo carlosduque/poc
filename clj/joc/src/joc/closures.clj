@@ -1,4 +1,4 @@
-(ns sandbox.core)
+(ns joc.core)
 
 ;;closures
 (def times-two

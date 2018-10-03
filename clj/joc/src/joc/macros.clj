@@ -1,4 +1,4 @@
-(ns sandbox.core)
+(ns joc.core)
 
 (import [java.io bufferedReader InputStreamReader]
         [java.net URL])

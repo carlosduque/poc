@@ -1,4 +1,4 @@
-(ns sandbox.core)
+(ns joc.core)
 
 ;;functional programming techniques
 ;;structural sharing

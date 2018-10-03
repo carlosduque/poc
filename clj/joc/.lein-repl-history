@@ -1,0 +1,31 @@
+exit
+java.util.Locale
+java.util.Locale/JAPAN
+(Math/sqrt 9)
+(new java.util.HashMap {"foo" 42 "bar" 8 "baz" "beep bop")
+(new java.util.HashMap {"foo" 42 "bar" 8 "baz" "beep bop"})
+(java.util.HashMap. {"foo" 42 "bar" 8 "baz" "beep boop"})
+(.. (java.util.Date.) toString (endsWith "2014"))
+(.. (java.util.Date.) toString (endsWith "2018"))
+(doto (java.util.HashMap.)
+  (.put "HOME" "/home/myself")
+  (.put "SRC" "src")
+  (.put "BIN" "classes"))
+(defn throw-catch [f]
+  [(try
+    (f)
+    (catch ArithmeticException e "You did not? Not by zero!" Noooo...")
+    (catch Exception e (str "You blew it " (.getMessage e)))
+    (finally (println "returning... ")))])
+(throw-catch #(/ 10 5))
+(throw-catch #(str "a" "b"))
+(defn throw-catch [f]
+  [(try
+    (f)
+    (catch ArithmeticException e "You did not? Not by zero!" Noooo...")
+    (catch Exception e (str "You blew it " (.getMessage e)))
+    (finally (println "returning... ")))])
+)
+)))
+xit
+exit

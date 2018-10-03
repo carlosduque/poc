@@ -1,4 +1,4 @@
-(ns sandbox.core)
+(ns joc.core)
 
 (defn pow [base exp]
   (if (zero? exp)

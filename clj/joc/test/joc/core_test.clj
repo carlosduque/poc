@@ -1,6 +1,6 @@
-(ns sandbox.core-test
+(ns joc.core-test
   (:require [clojure.test :refer :all]
-            [sandbox.core :refer :all]
+            [joc.core :refer :all]
             [clojure.tools.cli :refer [parse-opts]))
 
 (comment (deftest pairs-of-values

@@ -1,4 +1,4 @@
-(ns sandbox.cli
+(ns joc.cli
   (:require [clojure.tools.cli :refer [parse-opts]])
   (:gen-class))
 

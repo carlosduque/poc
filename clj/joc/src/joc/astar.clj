@@ -1,4 +1,4 @@
-(ns sandbox.core)
+(ns joc.core)
 
 ;;A* pathfinding
 (def world [[  1   1   1   1   1]

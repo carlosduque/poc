@@ -1,4 +1,4 @@
-(ns sandbox.core)
+(ns joc.core)
 
 (defrecord TreeNode [val l r])
 (TreeNode. 5 nil nil)

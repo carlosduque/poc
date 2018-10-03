@@ -1,4 +1,4 @@
-(ns sandbox.core)
+(ns joc.core)
 
 (defmulti compiler :os)
 (defmethod compiler ::unix [m] (get m :c-compiler))

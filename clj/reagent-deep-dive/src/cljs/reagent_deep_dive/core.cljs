@@ -21,8 +21,9 @@
    [:div [:a {:href "/announcement"} "go to announcement page"]]
    [:div [:a {:href "/mouse-pos"} "go to mouse-pos page"]]
    ;[:div [:a {:href "/vendor"} "go to lambda-3d page"]]
-   [:div [:a {:href "/vendor"} "go to lambda-3d page"]]])
-
+   [:div [:a {:href "/circles"} "go to circles page"]]
+   [:div [:a {:href "/favorites-by-order-and-name"} "go to favorites-by-order-and-name page"]]
+   [:div [:a {:href "/dessertinator"} "go to dessertinator page"]]])
 
 (defn simple-button []
   [:div#my-button.my-class1.my-class2 [:h2 "reagent-deep-dive:simple-button"]
@@ -270,6 +271,79 @@
 ;                    [:id [:label "type in a value for x: "
 ;                          [:input {:on-change (fn [e] (reset! x (.. e -target -value)))}]]
 ;                     [with-log [a-better-mouse-trap [puppy @x]]]]))
+
+;; Part III
+(defn circles []
+  [:svg {:width 200 :height 200}
+   (for [i (range 30)]
+     [:circle
+      {:r (* (inc i) 5)
+       :cx 100
+       :cy 100
+       :fill "none"
+       :stroke (str "rgb(0, " (* i 10) "," (* (- 30 i) 10) ")")}])])
+
+(def favorites
+  (reagent/atom
+    {"d632" {:name "Princess torte." :order 2}
+     "1ae2" {:name "Black forest gateau." :order 3}
+     "5117" {:name "Ice cream." :order 1}}))
+
+(defn list-by [entities sort-k]
+  [:ul
+   (for [[k v] (sort-by (comp sort-k val) @entities)]
+     ^{:key k}
+     [:li (:name v)])])
+
+(defn favorites-by-order-and-name []
+  [:div
+   [:h3 "By order"]
+   [list-by favorites :order]
+   [:h3 "By name"]
+   [list-by favorites :name]])
+
+(def words
+  ["ice" "cream" "chocolate" "pastry" "pudding" "raspberry" "mousse"
+   "vanilla" "wafer" "waffle" "cake" "torte" "gateau" "pie" "cookie"
+   "cupcake" "mini" "hot" "caramel" "meringue" "lemon" "marzipan" "mocha"
+   "strawberry" "tart" "custard" "fruit" "baklava" "jelly" "banana" "coconut"])
+
+(defn rand-name []
+  (clojure.string/capitalize (clojure.string/join " " (take (+ 2 (rand-int 5)) (shuffle words)))))
+
+(def desserts (reagent/atom ()))
+
+(defn make-a-dessert [e]
+  (swap! desserts conj {:id (random-uuid)
+                        :name (rand-name)}))
+
+(defn make-many-desserts [e]
+  (dotimes [i 100]
+    (make-a-dessert nil)))
+
+(defn color-for [x]
+  (str "#" (.toString (bit-and (hash x) 0xFFFFFF) 16)))
+
+(defn dessert-item [{:keys [id name]}]
+  [:li
+   [:svg {:width 50 :height 50}
+    [:circle
+     {:r 20 :cx 25 :cy 25 :fill (color-for id)}]
+    [:rect {:x 15 :y 15 :width 20 :height 20 :fill (color-for name)}]]
+   [:span [:em [:strong name]]]])
+
+(defn desserts-list []
+  [:ol
+   (for [dessert @desserts]
+     ^{:key (:id dessert)}
+     [dessert-item dessert])])
+
+(defn dessertinator []
+  [:div
+   [:button {:on-click make-a-dessert} "Invent a new dessert"]
+   [:button {:on-click make-many-desserts} "Invent 100 new desserts"]
+   [desserts-list]])
+
 ;; -------------------------
 ;; Routes
 (defonce page (atom #'home-page))
@@ -316,6 +390,17 @@
 
 ;(secretary/defroute "/vendor" []
 ;                    (reset! page #'vendor))
+
+;;part III
+(secretary/defroute "/circles" []
+  (reset! page #'circles))
+
+(secretary/defroute "/favorites-by-order-and-name" []
+  (reset! page #'favorites-by-order-and-name))
+
+(secretary/defroute "/dessertinator" []
+                    (reset! page #'dessertinator))
+
 ;; -------------------------
 ;; Initialize app
 (defn mount-root []

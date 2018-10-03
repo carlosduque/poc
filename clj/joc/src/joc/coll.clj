@@ -1,4 +1,4 @@
-(ns sandbox.core)
+(ns joc.core)
 
 ;collection types
 (def ds [:willie :barnabas :adam])
