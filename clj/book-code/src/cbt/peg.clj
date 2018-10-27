@@ -1,5 +1,5 @@
 (ns cbt.peg
-  (require [clojure.set :as set])
+  (:require [clojure.set :as set])
   (:gen-class))
 
 (declare successful-move prompt-move game-over query-rows)
@@ -8,8 +8,8 @@
     "Generates lazy sequence of triangular numbers"
     ([] (tri* 0 1))
     ([sum n]
-        (let [new-sum (+ sum n)])
-        (cons new-sum (lazy-seq (tri* new-sum (inc n))))))
+        (let [new-sum (+ sum n)]
+        (cons new-sum (lazy-seq (tri* new-sum (inc n)))))))
 
 (def tri (tri*))
 
@@ -33,8 +33,8 @@
     "Form a mutual connection between two positions"
     [board max-pos pos neighbor destination]
     (if (<= destination max-pos)
-      (reduce (fn [new-board [p1 p2]])
-          (assoc-in new-board [p1 :connections p2] neighbor)
+      (reduce (fn [new-board [p1 p2]]
+          (assoc-in new-board [p1 :connections p2] neighbor))
           board
           [[pos destination] [destination pos]]
           board)))
