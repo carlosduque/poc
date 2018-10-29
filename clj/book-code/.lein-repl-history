@@ -43,3 +43,148 @@ exit
 (conj 4 [1 2 3])
 (:a #{:c :b :x :a :z})
 (:y #{:c :b :x :a :z})
+(#(str %1) "Hello World")
+(#(sq %1) "Hello World")
+(#(seq %1) "Hello World")
+(#(-> %1 seq) "Hello World")
+(#(-> %1 seq) [7 8 4 3 2])
+(#(-> %1 seq) "Hello World")
+(fn [x] (seq x) "Hello World")
+((fn [x] (seq x)) "Hello World")
+((fn [x] (loop [head & tail] (str head))) "Hello World")
+((fn [x] (loop [[head & tail]] (str head))) "Hello World")
+(#(str %1) "Hello World")
+(#(seq %1) "Hello World")
+(#(-> seq) "Hello World")
+(#(-> % seq) "Hello World")
+(#(-> % seq #(str)) "Hello World")
+(#(-> % seq count) "Hello World")
+(source count)
+(#(-> % seq count) "Hello World")
+(#(-> % seq (reduce + 0 %)) "Hello World")
+(#(-> % seq (reduce + 0 %1)) "Hello World")
+(#(-> % seq (reduce + 0 %2)) "Hello World")
+(reduce str "Hello World")
+(reduce str [] "Hello World")
+(reduce str "Hello World")
+(reduce str 0 "Hello World")
+(reduce #(str %1 "-") 0 "Hello World")
+(reduce #(str %1 "-") [] "Hello World")
+(reduce #(str %1 "-") "Hello World")
+(reduce #(str %1 "-" %2) "Hello World")
+(reduce #(str %1) "Hello World")
+(reduce #(str %1 %2) "Hello World")
+(reduce #(+ %1 %2) "Hello World")
+(defn mycount [coll]
+  (loop [[head & tail] coll]
+    (empty? tail
+      acum
+      (recur (rest coll))))
+(defn mycount [coll]
+  (loop [[head & tail] coll
+         acum []]
+       (empty? tail
+         acum
+         (recur (rest coll)))))
+(let [[head & tail] (list 5 3 8 6 2 4)]
+  (str head))
+(let [[head & tail] (list 5 3 8 6 2 4)]
+  (str head))
+(let [[head & tail] "hello world"]
+  (str head))
+(let [[head & tail] "hello world"]
+  (str tail))
+(loop [[head & tail] "Hello World"
+       acum []]
+      (empty? tail
+        acum
+        (recur (rest tail) (into acum [head]))))
+(reduce (fn [acum el]
+(reduce (fn [acum el]ZVZ
+(reduce (fn [acum el]
+         (into acum (set [el]))) [] "Hello World")
+(reduce (fn [acum el]
+(map inc [1 2 3])
+(map str ["a" "b" "c"] ["A" "B" "C"])
+(sum [1 5 6])
+exit
+(#(range %) 6)
+((fn [x] (loop [lim x acum []] (if (< lim 0) acum (recur (dec lim) (into acum lim))))) 6)
+(#(range %) 6)
+(defn fib
+  [x]
+  (loop [lim x
+         acum []]
+))
+(#(range %) 6)
+(#(str %) 6)
+((fn [x] (str x)) 6)
+(#(range %) 6)
+(#(+ % (dec %)) 6)
+(#(+ (dec %) (- % 2)) 6)
+(#(range %) 6)
+((fn [x] (loop [a 1 b 0 lim x] (if (zero? lim) b (recur (+ a b) a (dec lim))))) 6)
+((fn [x] (loop [a 1 b 0 lim x] (if (zero? lim) b (recur (+ a b) a (dec lim))))) 8)
+(map (fn [x] (loop [a 1 b 0 lim x] (if (zero? lim) b (recur (+ a b) a (dec lim))))) (range 8))
+((fn [x] (loop [a 1 b 0 lim x] (if (zero? lim) b (recur (+ a b) a (dec lim))))) 8)
+((fn [lim] (loop [a 1 b 0 x lim] (if (zero? x) b (recur (+ a b) a (dec x))))) 8)
+(#(into [] (range %)) 8)
+(reduce into [] (range 8))
+(reduce conj [] (range 8))
+(doc conj)
+(doc into)
+(source into)
+(source conj)
+(reduce conj [] (range 8))
+(into [] (range 8))
+(reduce conj [] ())
+(#(reduce conj [] (range %)) 6)
+(#(reduce conj [] (map #(identity) (range %))) 6)
+(reduce conj [] (map #(identity) (range %)) 6)
+(reduce conj [] (map #(identity) (range 6)) )
+(reduce conj [] (map #(identity) (range 6)))
+(map #(identity) (range 6))
+(map #(identity %) (range 6))
+(reduce conj [] (map #(identity %) (range 6)))
+(map #(identity %) (range 6))
+(#(take % (iterate %) 1) 6)
+(take 5 (iterace inc 1))
+(take 5 (iterate inc 1))
+(#(take % (iterate inc 1) %) 6)
+(#(take % (iterate inc 1)) 6)
+(def fib (map first (iterate (fn [[a b]] [b (+' a b)]) [0 1])))
+(fib 8)
+(take 10 fib)
+(def fib (map first (iterate (fn [[a b]] [b (+ a b)]) [0 1])))
+(take 10 fib)
+(fn [[a b]] [b (+ a b)])
+((fn [[a b]] [b (+ a b)]) [0 1])
+(take 5 (iterate (fn [[a b]] [b (+ a b)]) [0 1]))
+(take 10 (iterate (fn [[a b]] [b (+ a b)]) [0 1]))
+(take 5 (iterate inc 1))
+(#(str %) (range 6))
+(#(str %) (iterate inc 1))
+(#(inc %) (range 6))
+(#(apply + %) (range 6))
+(#(reduce + %) (range 6))
+((fn [x] (str x)) 6)
+(loop [res [0 1]]
+        (if (>= (count res) 1000)
+          res
+          (recur (conj res (+' (inc (last res)) (dec (last (butlast res))))))))
+(loop [res [0 1]] (if (>= (count res) 1000) res (recur (conj res (+' (inc (last res)) (dec (last (butlast res))))))))
+(loop [p [0 1]] (if (>= (count p) 8) p (recur (conj p (+ (inc (last p)) (dec (last (butlast p))))))))
+(int [0 1])
+(int (last [0 1]))
+(int (first [0 1]))
+(inc (last [0 1]))
+(inc (first [0 1]))
+(loop [p [0 1]] (if (>= (count p) 8) p (recur (conj p (+ (inc (last p)) (dec (last (butlast p))))))))
+(last (butlast [0 1]))
+(last (butlast [8 13]))
+(butlast [8 13])
+(first [8 13])
+(loop [p [0 1]] (if (>= (count p) 8) p (recur (conj p (+ (inc (last p)) (dec (first p))))))))
+(loop [p [0 1]] (if (>= (count p) 8) p (recur (conj p (+ (inc (last p)) (dec (first p)))))))
+(loop [p [0 1]] (if (>= (count p) 8) p (recur (conj p (+ (inc (last p)) (dec (last (butlast p))))))))
+exit
