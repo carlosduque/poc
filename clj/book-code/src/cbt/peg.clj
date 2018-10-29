@@ -132,6 +132,22 @@
 (def letters (map (comp str char) (range alpha-start alpha-end)))
 (def pos-chars 3)
 
+(def ansi-styles
+    {:red   "[31m"
+     :green "[32m"
+     :blue  "[34m"
+     :reset "[0m"})
+
+(defn ansi
+    "Produce a string which will apply an ansi style"
+    [style]
+    (str \u001b (style ansi-styles)))
+
+(defn colorize
+    "Apply ansi color to text"
+    [text color]
+    (str (ansi color) text (ansi :reset)))
+
 (defn render-pos
     [board pos]
     (str (nth letters (dec pos))
@@ -176,15 +192,11 @@
                 default
                 (clojure.string/lower-case input)))))
 
-(defn prompt-move
-    [board]
-    (println "\nHere's your board:")
-    (print-board board)
-    (println "Move from where to where? Enter two letters:")
-    (let [input (map letter->pos (characters-as-strings (get-input)))]
-        (if-let [new-board (make-move➊ board (first input) (second input))]
-            (user-entered-valid-move new-board)
-            (user-entered-invalid-move board))))
+(defn characters-as-strings
+    "Given a string, return a collection consisting of each individual
+    character"
+    [string]
+    (re-seq #"[a-zA-Z]" string))
 
 (defn user-entered-invalid-move
     "Handles the next step after a user has entered an invalid move"
@@ -198,6 +210,30 @@
     (if (can-move? board)
         (prompt-move board)
         (game-over board)))
+
+(defn prompt-move
+    [board]
+    (println "\nHere's your board:")
+    (print-board board)
+    (println "Move from where to where? Enter two letters:")
+    (let [input (map letter->pos (characters-as-strings (get-input)))]
+        (if-let [new-board (make-move board (first input) (second input))]
+            (user-entered-valid-move new-board)
+            (user-entered-invalid-move board))))
+
+(defn prompt-empty-peg
+    [board]
+    (println "Here's your board:")
+    (print-board board)
+    (println "Remove which peg? [e]")
+    (prompt-move (remove-peg board (letter->pos (get-input "e")))))
+
+(defn prompt-rows
+    []
+    (println "How many rows? [5]")
+    (let [rows (Integer. (get-input 5))
+          board (new-board rows)]
+        (prompt-empty-peg board)))
 
 (defn game-over
     "Announce the game is over and prompt to play again"
@@ -213,16 +249,7 @@
                     (println "Bye!")
                     (System/exit 0))))))
 
-(defn prompt-empty-peg
-    [board]
-    (println "Here's your board:")
-    (print-board board)
-    (println "Remove which peg? [e]")
-    (prompt-move (remove-peg board (letter->pos (get-input "e")))))
-
-(defn prompt-rows
-    []
-    (println "How many rows? [5]")
-    (let [rows (Integer. (get-input 5))
-          board (new-board rows)]
-        (prompt-empty-peg board)))
+(defn -main
+    [& args]
+    (println "Get ready to play peg thing!")
+    (prompt-rows))
