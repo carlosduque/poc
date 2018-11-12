@@ -2,6 +2,7 @@
   (:require
    [re-frame.core :as re-frame]
    [lein-spa.subs :as subs]
+   [lein-spa.events :as events]
    ))
 
 
@@ -15,6 +16,10 @@
      [:div
       [:a {:href "#/about"}
        "go to About Page"]]
+
+     [:div
+      [:a {:href "#/msg"}
+       "go to Message Page"]]
      ]))
 
 
@@ -29,12 +34,34 @@
      "go to Home Page"]]])
 
 
+;; message
+(defn msg-input []
+  [:div.msg-input
+   "Message input: "
+   [:form {:novalidate "" :role "form"}
+     [:input {:type "text"
+              :value @(re-frame/subscribe [::subs/msg])}]
+     [:button
+       {:on-click #(re-frame/dispatch [::events/msg-register (-> % .-target .-value)])}
+       "Send"]]])
+
+
+
+(defn msg-panel []
+  [:div
+   [:h1 "Register a message."]
+   [msg-input]
+   [:div
+    [:a {:href "#/"}
+     "go to Home Page"]]])
+
 ;; main
 
 (defn- panels [panel-name]
   (case panel-name
     :home-panel [home-panel]
     :about-panel [about-panel]
+    :msg-panel [msg-panel]
     [:div]))
 
 (defn show-panel [panel-name]

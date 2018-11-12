@@ -14,3 +14,9 @@
  ::set-active-panel
  (fn-traced [db [_ active-panel]]
    (assoc db :active-panel active-panel)))
+
+(re-frame/reg-event-db
+ ::msg-register
+ (fn-traced [db [_ new-msg]]
+  (assoc db :msg new-msg)))
+

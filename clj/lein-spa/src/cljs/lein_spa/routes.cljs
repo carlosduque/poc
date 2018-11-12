@@ -22,12 +22,13 @@
   ;; --------------------
   ;; define routes here
   (defroute "/" []
-    (re-frame/dispatch [::events/set-active-panel :home-panel])
-    )
+    (re-frame/dispatch [::events/set-active-panel :home-panel]))
 
   (defroute "/about" []
     (re-frame/dispatch [::events/set-active-panel :about-panel]))
 
+  (defroute "/msg" []
+    (re-frame/dispatch [::events/set-active-panel :msg-panel]))
 
   ;; --------------------
   (hook-browser-navigation!))
