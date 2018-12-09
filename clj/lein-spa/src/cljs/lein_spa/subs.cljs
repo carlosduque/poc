@@ -14,5 +14,5 @@
 
 (re-frame/reg-sub
   ::msg
- (fn [db]
-   (:msg db)))
+  (fn [db _]
+    (:msg db)))

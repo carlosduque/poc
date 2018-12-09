@@ -6,6 +6,7 @@
                  [secretary "1.2.3"]
                  [compojure "1.6.1"]
                  [yogthos/config "1.1.1"]
+                 [cider/cider-nrepl "0.18.0"]
                  [ring "1.7.1"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]]

@@ -2,8 +2,7 @@
   (:require
    [re-frame.core :as re-frame]
    [lein-spa.subs :as subs]
-   [lein-spa.events :as events]
-   ))
+   [lein-spa.events :as events]))
 
 
 ;; home
@@ -38,19 +37,30 @@
 (defn msg-input []
   [:div.msg-input
    "Message input: "
-   [:form {:novalidate "" :role "form"}
-     [:input {:type "text"
-              :value @(re-frame/subscribe [::subs/msg])}]
-     [:button
-       {:on-click #(re-frame/dispatch [::events/msg-register (-> % .-target .-value)])}
-       "Send"]]])
+   [:input {:type "text"
+            :value @(re-frame/subscribe [::subs/msg])
+            :on-change
+            #(re-frame/dispatch [::events/msg-register (-> % .-target .-value)])}]
+   [btn @(re-frame/subscribe [::subs/msg])]])
 
+(defn btn [msg]
+  [:button
+   {:on-click (fn [e]
+                (.preventDefault e)
+                (re-frame/dispatch [::events/msg-register msg]))}
+   "Send"])
 
+(defn msg-output []
+  (let [msg (re-frame/subscribe [::subs/msg])]
+    (fn []
+      [:div
+       [:em @msg]])))
 
 (defn msg-panel []
   [:div
    [:h1 "Register a message."]
    [msg-input]
+   [msg-output]
    [:div
     [:a {:href "#/"}
      "go to Home Page"]]])
@@ -70,3 +80,4 @@
 (defn main-panel []
   (let [active-panel (re-frame/subscribe [::subs/active-panel])]
     [show-panel @active-panel]))
+
