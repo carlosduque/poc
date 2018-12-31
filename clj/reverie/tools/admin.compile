@@ -1,3 +1,0 @@
-#!/bin/sh
-
-lessc less/admin.less reverie-core/resources/public/static/admin/css/main.css
