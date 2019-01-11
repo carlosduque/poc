@@ -36,7 +36,7 @@
                  [selmer "1.12.5"]]
 
   :min-lein-version "2.0.0"
-  
+
   :source-paths ["src/clj" "src/cljs" "src/cljc"]
   :test-paths ["test/clj"]
   :resource-paths ["resources" "target/cljsbuild"]
@@ -54,7 +54,7 @@
    :css-dirs ["resources/public/css"]
    :nrepl-middleware
    [cider/wrap-cljs-repl cider.piggieback/wrap-cljs-repl]}
-  
+
 
   :profiles
   {:uberjar {:omit-source true
@@ -72,8 +72,8 @@
                  :infer-externs true
                  :closure-warnings
                  {:externs-validation :off :non-standard-jsdoc :off}}}}}
-             
-             
+
+
              :aot :all
              :uberjar-name "picture-gallery.jar"
              :source-paths ["env/prod/clj"]
@@ -108,9 +108,9 @@
                       :source-map true
                       :optimizations :none
                       :pretty-print true}}}}
-                  
-                  
-                  
+
+
+
                   :doo {:build "test"}
                   :source-paths ["env/dev/clj"]
                   :resource-paths ["env/dev/resources"]
@@ -128,7 +128,6 @@
                       :main "picture-gallery.doo-runner"
                       :optimizations :whitespace
                       :pretty-print true}}}}
-                  
                   }
    :profiles/dev {}
    :profiles/test {}})
