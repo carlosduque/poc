@@ -7,4 +7,4 @@
   (-> handler
       wrap-reload
       wrap-error-page
-      (wrap-exceptions {:app-namespaces ['picture-gallery]})))
+      wrap-exceptions))

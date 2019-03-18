@@ -2,41 +2,43 @@
   (:require
     [cheshire.core :refer [generate-string parse-string]]
     [clojure.java.jdbc :as jdbc]
-    [clojure.tools.logging :as log]
     [conman.core :as conman]
-    [java-time :as jt]
     [picture-gallery.config :refer [env]]
     [mount.core :refer [defstate]])
   (:import org.postgresql.util.PGobject
-           java.sql.Array
+           org.postgresql.jdbc4.Jdbc4Array
            clojure.lang.IPersistentMap
            clojure.lang.IPersistentVector
            [java.sql
             BatchUpdateException
+            Date
+            Timestamp
             PreparedStatement]))
+
 (defstate ^:dynamic *db*
-  :start (if-let [jdbc-url (env :database-url)]
-           (conman/connect! {:jdbc-url jdbc-url})
-           (do
-             (log/warn "database connection URL was not found, please set :database-url in your config, e.g: dev-config.edn")
-             *db*))
-  :stop (conman/disconnect! *db*))
+          :start (conman/connect!
+                   {:init-size  1
+                    :min-idle   1
+                    :max-idle   4
+                    :max-active 32
+                    :jdbc-url   (env :database-url)})
+          :stop (conman/disconnect! *db*))
 
 (conman/bind-connection *db* "sql/queries.sql")
 
+(defn to-date [sql-date]
+  (-> sql-date (.getTime) (java.util.Date.)))
 
 (extend-protocol jdbc/IResultSetReadColumn
-    java.sql.Timestamp
-  (result-set-read-column [v _2 _3]
-    (.toLocalDateTime v))
-  java.sql.Date
-  (result-set-read-column [v _2 _3]
-    (.toLocalDate v))
-  java.sql.Time
-  (result-set-read-column [v _2 _3]
-    (.toLocalTime v))
-  Array
+  Date
+  (result-set-read-column [v _ _] (to-date v))
+
+  Timestamp
+  (result-set-read-column [v _ _] (to-date v))
+
+  Jdbc4Array
   (result-set-read-column [v _ _] (vec (.getArray v)))
+
   PGobject
   (result-set-read-column [pgobj _metadata _index]
     (let [type  (.getType pgobj)
@@ -47,10 +49,15 @@
         "citext" (str value)
         value))))
 
+(extend-type java.util.Date
+  jdbc/ISQLParameter
+  (set-parameter [v ^PreparedStatement stmt ^long idx]
+    (.setTimestamp stmt idx (Timestamp. (.getTime v)))))
+
 (defn to-pg-json [value]
-  (doto (PGobject.)
-    (.setType "jsonb")
-    (.setValue (generate-string value))))
+      (doto (PGobject.)
+            (.setType "jsonb")
+            (.setValue (generate-string value))))
 
 (extend-type clojure.lang.IPersistentVector
   jdbc/ISQLParameter
@@ -63,23 +70,7 @@
         (.setObject stmt idx (to-pg-json v))))))
 
 (extend-protocol jdbc/ISQLValue
-    java.util.Date
-  (sql-value [v]
-    (java.sql.Timestamp. (.getTime v)))
-  java.time.LocalTime
-  (sql-value [v]
-    (jt/sql-time v))
-  java.time.LocalDate
-  (sql-value [v]
-    (jt/sql-date v))
-  java.time.LocalDateTime
-  (sql-value [v]
-    (jt/sql-timestamp v))
-  java.time.ZonedDateTime
-  (sql-value [v]
-    (jt/sql-timestamp v))
   IPersistentMap
   (sql-value [value] (to-pg-json value))
   IPersistentVector
   (sql-value [value] (to-pg-json value)))
-

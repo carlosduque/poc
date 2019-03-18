@@ -1,2 +1,3 @@
 (ns picture-gallery.validation
-  (:require [struct.core :as st]))
+  (:require [bouncer.core :as b]
+            [bouncer.validators :as v]))
