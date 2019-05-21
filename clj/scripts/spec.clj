@@ -1,5 +1,6 @@
 (ns sandbox.spec
-  (:require [clojure.spec.alpha :as s]))
+  (:require [clojure.spec.alpha :as s]
+            [clojure.spec.test.alpha :as stest]))
 
 ;predicates
 (s/conform even? 1000)
@@ -39,3 +40,20 @@
 (s/explain ::suit 42)
 (s/explain ::big-even 5)
 (s/explain ::name-or-id :foo)
+
+(s/explain-data ::suit 42)
+(s/explain-data ::big-even 5)
+(s/explain-data ::name-or-id :foo)
+
+
+;clojure programming:spec
+(s/fdef clojure.core/symbol
+  :args (s/cat :ns (s/? string?) :name string?)
+  :ret symbol?
+  :fn (fn [{:keys [args ret]}]
+        (and (= (name ret) (:name args))
+             (= (namespace ret) (:ns args)))))
+
+(stest/check 'clojure.core/symbol)
+
+(s/exercise (s/cat :ns (s/? string?) :name string?))
