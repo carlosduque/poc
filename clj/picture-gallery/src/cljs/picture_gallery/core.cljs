@@ -6,6 +6,7 @@
             [goog.history.EventType :as HistoryEventType]
             [markdown.core :refer [md->html]]
             [picture-gallery.ajax :refer [load-interceptors!]]
+            [picture-gallery.components.registration :as reg]
             [ajax.core :refer [GET POST]])
   (:import goog.History))
 
@@ -55,7 +56,10 @@
    :about #'about-page})
 
 (defn page []
-  [(pages (session/get :page))])
+  [:div
+   ;;modal test
+   ;[reg/registration-form]
+   [(pages (session/get :page))]])
 
 ;; -------------------------
 ;; Routes
@@ -89,6 +93,5 @@
 
 (defn init! []
   (load-interceptors!)
-  (fetch-docs!)
   (hook-browser-navigation!)
   (mount-components))
