@@ -23,3 +23,10 @@
       r-squared (* r r)]
   (println "radius is" r)
   (* pi r-squared))
+
+(require '[clojure.data.csv :as csv]
+         '[clojure.java.io :as io])
+
+(with-open [reader (io/reader "in-file.csv")]
+  (doall
+   (csv/read-csv reader)))
