@@ -1,12 +1,13 @@
 (ns scotia2ledger.core
-  (require '[clojure.data.csv :as csv]
-           '[clojure.java.io :as io])
+  (:require [clojure.data.csv :as csv]
+            [clojure.java.io :as io])
   (:gen-class))
 
-(defn 
-(with-open [reader (io/reader "in-file.csv")]
-  (doall
-    (csv/read-csv reader)))
+(defn read-csv-file
+  [filename]
+  (with-open [reader (io/reader filename)]
+    (doall
+      (csv/read-csv reader))))
 
 (defn csv-data->maps [csv-data]
   (map zipmap
@@ -15,14 +16,7 @@
             repeat)
        (rest csv-data)))
 
-(csv-data->maps (read-csv reader))
-
-(->> (read-csv reader)
-     csv-data->maps
-     (map (fn [csv-record]
-            (update csv-record :bar #(Long/parseLong %)))))
-
 (defn -main
-  "I don't do a whole lot ... yet."
+  "Read a csv file"
   [& args]
-  (println (csv-data)))
+  (println (csv-data->maps (read-csv-file (first args)))))
