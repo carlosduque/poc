@@ -1,19 +1,25 @@
 #!/usr/bin/env planck
 
 ;clojurescript
-(require '[planck.core :refer [*in* slurp spit]])
+(ns ledger.core)
 
-(slurp "./books.csv")
-(spit "./math.txt" (+ 3 4 6 7 8))
+(require '[planck.core :refer [*in* slurp spit]]
+         '[planck.io :refer [reader]])
 
-(pr (slurp *in*))
+(defn read-csv-file
+  [filename]
+  (with-open [reader (reader filename)]
+    (doall
+      (read-csv reader))))
 
-(def data (slurp "https://swapi.co/api/people/"))
-(.parse js/JSON data)
-(js->clj (.parse js/JSON data) :keywordize-keys true)
+(defn csv-data->maps [csv-data]
+  (map zipmap
+       (->> (first csv-data)
+            (map keyword)
+            repeat)
+       (rest csv-data)))
 
-;in one line
-(-> "https://swapi.co/api/people/"
-    slurp
-    JSON.parse
-    (js-clj :keywordize-keys true))
+(defn -main
+  "Read a csv file"
+  [& args]
+  (println (csv-data->maps (read-csv-file (first args)))))
