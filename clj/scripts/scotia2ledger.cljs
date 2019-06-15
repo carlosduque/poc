@@ -6,11 +6,15 @@
 (require '[planck.core :refer [*in* slurp spit]]
          '[planck.io :refer [reader]])
 
+(defn read-csv
+  []
+  )
+
 (defn read-csv-file
   [filename]
-  (with-open [reader (reader filename)]
+  (let [readr (reader filename)]
     (doall
-      (read-csv reader))))
+      (read-csv readr))))
 
 (defn csv-data->maps [csv-data]
   (map zipmap
