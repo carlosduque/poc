@@ -1,4 +1,6 @@
-(ns ring-app.core)
+(ns ring-app.core
+  (:require
+    [ring.adapter.jetty :as jetty]))
 
 ;Handlers
 (defn handler
@@ -11,7 +13,7 @@
   ;asynchronous handler: three-argument
   ;[request respond raise]
   ;(respond (what-is-my-ip request))
-  )
+  ;)
 
 ;middleware
 ;higher-level functions adding func to handlers
@@ -52,7 +54,7 @@
     (= "/ip" (:uri request))
       {:status 200
        :headers {"Content-Type" "text/html"}
-       :body (str "<h1>" (:remote-addr request) "</h1>"}
+       :body (str "<h1>" (:remote-addr request) "</h1>")}
     (= "/x" (:uri request))
       {:status 200
        :headers {"Content-Type" "text/html"}
@@ -60,7 +62,7 @@
     :else
       {:status 404
        :headers {"Content-Type" "text/html"}
-       :body "<h2>Danger Will Robinson</h2>You are in the <em>wrong</em> place}))
+       :body "<h2>Danger Will Robinson</h2>You are in the <em>wrong</em> place"}))
 
 (defn -main
   "A very simple web server using Ring & Jetty"
