@@ -1,4 +1,4 @@
-(ns ca.money)
+(ns ca.ch1.money)
 
 (declare validate-same-currency)
 

@@ -1,4 +1,4 @@
-(ns ca.modeling)
+(ns ca.ch1.modeling)
 
 ;;Modeling Entities
 
