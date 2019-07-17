@@ -1,4 +1,5 @@
-(ns ca.ch1.convert)
+(ns ca.ch1.convert
+  (:require [ca.ch1.recipe :refer [Ingredient]]))
 
 (defmulti convert
   "Convert quantity from unit1 to unit2, matching on [unit1 unit2]"
@@ -22,4 +23,21 @@
   [{q1 :quantity u1 :unit :as i1} {q2 :quantity u2 :unit}]
   (assoc i1 :quantity (+ q1 (convert u2 u1 q2))))
 
+
+(ingredient+ (->Ingredient "Spaghetti" 1/2 :lb)
+             (->Ingredient "Spaghetti" 4 :oz))
+
+(defprotocol TaxedCost
+  (taxed-cost [entity store]))
+
+(extend-protocol TaxedCost
+  Object
+  (taxed-cost [entity store]
+    (if (satisfies? Cost entity)
+      (do (extend-protocol TaxedCost
+            (class entity)
+            (taxed-cost [entity store]
+              (* (cost entity store) (+ 1 (tax-rate store)))))
+          (taxed-cost entity store))
+      (assert false (str "Unhandled entity: " entity)))))
 
