@@ -22,7 +22,7 @@
   [value]
   (println "value" @value))
 
-(def thread (Thread. (complex-job gen-uuid now)))
+(def thread (Thread. (complex-job (gen-uuid) (now))))
 (.start thread)
 
 ;;futures
