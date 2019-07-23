@@ -48,10 +48,7 @@
 
 (with-new-thread (get-document url))
 
-(with-new-thread (complex-job gen-uuid now))
-
-(def thread (Thread. (complex-job gen-uuid now)))
-(.start thread)
+(with-new-thread (complex-job (gen-uuid) (now)))
 
 ;;futures
 (def f (let [id (gen-uuid)
