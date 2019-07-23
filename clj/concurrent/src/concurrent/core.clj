@@ -33,46 +33,57 @@
 
 (def url "http://www.gutenberg.org/cache/epub/103/pg103.txt")
 
-(defn get-document
+(defn get-document-delay
   [url]
   (let [url url
-        id (md5 url)]
+        id (md5 url)] ;; should really hash the contents, not the url :-)
     {:id id
      :url url
     :mime "text/plain"
     :content (delay (slurp url))}))
 
+(defn get-document-future
+  [url]
+  (let [url url
+        id (md5 url)] ;; should really hash the contents, not the url :-)
+    {:id id
+     :url url
+    :mime "text/plain"
+    :content (future (slurp url))}))
+
+(defn get-document
+  [url]
+  (let [url url
+        id (md5 url)] ;; should really hash the contents, not the url :-)
+    {:id id
+     :url url
+    :mime "text/plain"
+    :content (slurp url)}))
+
 (defn deref-val
   [value]
   (println "value" @value))
 
-(with-new-thread (get-document url))
 
-(with-new-thread (complex-job (gen-uuid) (now)))
+(with-new-thread (get-document-promise url))
 
 ;;futures
-(def f (let [id (gen-uuid)
-             sent-at (now)]
-         (future (complex-job "future" sent-at))))
+(def f (get-document-future url))
+(realized? (:content f))
+@(:content f) ;; the contents of the book should already be there!
 
 ;;promises
 (def p (promise))
-
-(doto (Thread. (fn []
-                 (complex-job )
-                 (deliver p 42)))
-               .start)
+(realized? p)
+(with-new-thread (deliver p (get-document url)))
+(realized? p)
+@p
 
 ;;delays
-(def d (let [id (gen-uuid)
-             sent-at (now)]
-         (delay (complex-job "delay" sent-at))))
-
-;;realize values
-(deref-val t)
-(deref-val f)
-(deref-val p)
-(deref-val d)
+(def d (get-document-delay url))
+(realized? (:content d))
+@(:content d) ;; will get the contents of the book now!
+(realized? (:content d))
 
 (defn -main
   "I don't do a whole lot ... yet."
