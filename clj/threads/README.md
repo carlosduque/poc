@@ -1,4 +1,4 @@
-# concurrent
+# threads
 
 FIXME: description
 
@@ -10,7 +10,7 @@ Download from http://example.com/FIXME.
 
 FIXME: explanation
 
-    $ java -jar concurrent-0.1.0-standalone.jar [args]
+    $ java -jar threads-0.1.0-standalone.jar [args]
 
 ## Options
 

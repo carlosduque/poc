@@ -1,6 +1,6 @@
-(ns parallel.core-test
+(ns threads.core-test
   (:require [clojure.test :refer :all]
-            [parallel.core :refer :all]))
+            [threads.core :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."

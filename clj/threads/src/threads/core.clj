@@ -1,4 +1,4 @@
-(ns concurrent.core
+(ns threads.core
   (:import java.security.MessageDigest
            java.math.BigInteger)
   (:gen-class))
@@ -9,9 +9,6 @@
 (defn now []
   (str (java.time.Instant/now)))
 
-(defn gen-uuid []
-  (str (java.util.UUID/randomUUID)))
-
 (defn md5
   [^String s]
   (->> s
@@ -19,17 +16,6 @@
        (.digest (MessageDigest/getInstance "MD5"))
        (BigInteger. 1)
        (format "%032x")))
-
-(defn complex-job
-  [id sent-at]
-  (let [duration (* 1000 (+ 1 (rand-int 7)))
-        started (now)]
-    (Thread/sleep duration)
-    {:id id
-     :sent-at sent-at
-     :started started
-     :end   (now)
-     :duration duration}))
 
 (def url "http://www.gutenberg.org/cache/epub/103/pg103.txt")
 
@@ -60,11 +46,6 @@
     :mime "text/plain"
     :content (slurp url)}))
 
-(defn deref-val
-  [value]
-  (println "value" @value))
-
-
 (with-new-thread (get-document-promise url))
 
 ;;futures
@@ -82,7 +63,7 @@
 ;;delays
 (def d (get-document-delay url))
 (realized? (:content d))
-@(:content d) ;; will get the contents of the book now!
+@(:content d) ;; will get the contents of the book now at deref time!
 (realized? (:content d))
 
 (defn -main
