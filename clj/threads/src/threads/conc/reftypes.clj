@@ -4,3 +4,7 @@
 
 ;;State: clojure's immutable datastructures
 ;;Identity: clojure's ref types (vars, atoms, refs, agents)
+
+(def a (atom 0))
+
+
