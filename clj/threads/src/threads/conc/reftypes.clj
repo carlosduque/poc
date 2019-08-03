@@ -5,6 +5,26 @@
 ;;State: clojure's immutable datastructures
 ;;Identity: clojure's ref types (vars, atoms, refs, agents)
 
-(def a (atom 0))
+;;Atom: synchronous, uncoordinated
+(def even-atom (atom 0 :validator even?))
 
+;;launch several threads affecting the atom
+(dotimes [i 5]
+  (.start (Thread. (fn [] (swap! even-atom inc))))
+  (u/with-new-thread (fn [] (swap! even-atom (partial * 3))))
+  (u/with-new-thread (fn [] (swap! even-atom dec))))
 
+;;Refs: synchronous, coordinated
+(def amount-ref (ref 1000))
+(def message-ref (ref "initial balance"))
+
+(defn withdrawal [amount message]
+  (dosync
+    (alter amount-ref - amount)
+    (ref-set message-ref message)))
+
+(u/with-new-thread (fn [] (withdrawal 100 "Papa John's")))
+(u/with-new-thread (fn [] (withdrawal  50 "Lo Saldes")))
+(u/with-new-thread (fn [] (withdrawal  75 "Rishtedar")))
+
+;;Agents: asynchronous uncoordinated
