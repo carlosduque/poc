@@ -28,3 +28,15 @@
 (u/with-new-thread (fn [] (withdrawal  75 "Rishtedar")))
 
 ;;Agents: asynchronous uncoordinated
+
+(def book-1 "http://www.gutenberg.org/cache/epub/103/pg103.txt")
+(def book-2 "http://www.gutenberg.org/cache/epub/996/pg996.txt")
+
+(defn fetch-books [urls]
+  (let [agents (map #(agent %) urls)]
+    (doseq [agent agents]
+      (send-off agent slurp)
+      (apply await-for 5000 agents)
+      (doall (map #(deref %) agents)))))
+
+(fetch-books [book-1 book-2])

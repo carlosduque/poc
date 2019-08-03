@@ -3,6 +3,7 @@
   (:gen-class))
 
 (def url "http://www.gutenberg.org/cache/epub/103/pg103.txt")
+(def don-quixote-url "http://www.gutenberg.org/cache/epub/996/pg996.txt")
 
 (defn get-document-delay
   [url]
