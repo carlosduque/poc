@@ -2,19 +2,19 @@
   (:gen-class))
 
 ;; #28
-(def nested1 '((1 2) 3 [4 [5 6]]))
-(def nested2 ["a" ["b"] "c"])
-(def nested3 '((((:a)))))
+(def n1 '((1 2) 3 [4 [5 6]]))
+(def n2 ["a" ["b"] "c"])
+(def n3 '((((:a)))))
 
 (defn lat
   [coll]
   (loop [acc '()
          xs coll]
+    (println "acc: " acc " xs: " xs)
     (cond
-      (nil? xs) acc
-      (seqable? (first xs)) (recur acc (first xs))
-      :else (recur (conj acc (first xs)) (rest xs)))))
-
+      (empty? xs) (reverse acc)
+      (seqable? (first xs)) (recur acc (concat (first xs) (rest xs)))
+      :else (recur (cons (first xs) acc) (rest xs)))))
 
 ;; #30
 (def mystr "Leeeerrroy")
@@ -29,3 +29,4 @@
 
 ;; #31
 #(partition-by identity %)
+

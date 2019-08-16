@@ -21,3 +21,4 @@ exit
 (get-in lider [:bacon])
 (get-in lider [inventory :bacon])
 (get-in lider [:inventory :bacon])
+exit
