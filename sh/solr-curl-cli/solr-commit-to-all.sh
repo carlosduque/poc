@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Solr
-export SOLR_URLS="mckvdatpdb08 mckvdatpdb09 mckvdatpdb10"
+export SOLR_URLS="solr1 solr2 solr3"
 export SOLR_CORES="core1 core2 core3 core4 core5 core6"
 
 echo "Commiting to all Solr instances..."

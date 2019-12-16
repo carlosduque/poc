@@ -1,7 +1,7 @@
 {
   "type" : "record",
   "name" : "Field",
-  "namespace" : "com.experian.precisematch.indexer.datasource.Field",
+  "namespace" : "com.e.pm.indexer.datasource.Field",
   "fields" : [
     {"name":"order", "type":"int"},
     {"name":"name", "type":"string"},

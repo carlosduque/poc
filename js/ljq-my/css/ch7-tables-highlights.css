@@ -1,0 +1,48 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+thead th {
+    background: #0000FF;
+    color: #fff;
+    padding: 0px 15px;
+}
+
+tbody th {
+    background: #0099FF;
+    color: #fff;
+    text-align: left;
+}
+
+#content tr.highlight {
+    background: #ff6;
+}
+
+.odd {
+    background: #d0d0d0;
+}
+
+.even {
+    background: #dfdfdf;
+}
+
+.hover {
+    color: #c300c3;
+}
+
+.highlight {
+    background: #ffff66;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+#tooltip {
+    position: absolute;
+    z-index: 2;
+    background: #efd;
+    border: 1px solid #ccc;
+    padding: 3px;
+}

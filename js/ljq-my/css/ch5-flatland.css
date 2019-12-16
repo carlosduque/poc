@@ -1,0 +1,26 @@
+span.footnote {
+    font-style:     italic;
+    font-family:    "Times New Roman", Times, serif;
+    display:        block;
+    margin:         1em 0;
+}
+.chapter span.footnote {
+    display:        inline;
+}
+
+.pulled-wrapper {
+    background: url('../img/pq-top.jpg') no-repeat left top;
+    position:   absolute;
+    width:      160px;
+    right:      -180px;
+    padding-top: 18px;
+}
+
+.pulled {
+    background: url('../img/pq-bottom.jpg') no-repeat left bottom;
+    position:   relative;
+    display:    block;
+    width:      140px;
+    padding:    0px 10px 24px 10px;
+    font:       italic 1.4em "Times new Roman", Times, serif;
+}

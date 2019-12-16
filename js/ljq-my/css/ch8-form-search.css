@@ -1,0 +1,46 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/*#search {
+  position: relative;
+  margin-bottom: 20px;
+}
+#search-text {
+  width: 16em;
+}
+*/
+.overlabel {
+  position: relative;
+}
+
+.overlabel label {
+  position: absolute;  
+  top: 6px;
+  left: 3px;
+  color: #999;
+  cursor: text;
+}
+#search label {
+  display: block;
+}
+
+.autocomplete {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #888;
+  width: 16em;
+  list-style-type: none;
+  z-index: 52;
+}
+
+.autocomplete li {
+  padding: 2px;
+  margin: 0;
+}
+
+.autocomplete li.selected {
+  background: #008;
+  color: #fff;
+}

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project name="hbase-delete" default="package" basedir=".">
+
+	<!-- Description of build file -->
+	<!-- ========================= -->
+	<description>My all-in-one mapreduce jar.</description>
+
+	<!--  Initialization   -->
+	<!-- ================= -->
+	<property name="build.output.path" value="build" />
+	<property name="build.class.jar.name" value="my.jar" />
+
+	<property name="build.library.path" value="lib" />
+	<property name="build.config.path" value="etc" />
+	
+	<property name="build.solr.path" value="solr" />
+
+	<property name="build.javac.version" value="1.6" />
+	<property name="build.src.path" value="src/java" />
+	<property name="build.javac.encoding" value="utf-8" />
+	<property name="build.javac.debug" value="on" />
+    <property name="build.output.path" value="build" />
+	<property name="build.class.path" value="${build.output.path}/classes" />
+
+	<!-- Project Classpath -->
+	<!-- ================= -->
+	<path id="project.build.class.path">
+		<fileset dir="${build.library.path}">
+			<include name="**/*.jar" />
+			<include name="**/*.zip" />
+		</fileset>
+	</path>
+	<!-- Cleanup previous builds -->
+	<!-- ===================== -->
+	<target name="clean">
+		<delete dir="${build.output.path}" />
+		<delete dir="${build.class.path}" />
+	</target>
+	<!-- Prepare for compilation -->
+	<!-- ======================= -->
+	<target name="prepare" depends="clean">
+		<mkdir dir="${build.output.path}" />
+		<mkdir dir="${build.class.path}" />
+		<mkdir dir="${build.output.path}/lib" />
+	</target>
+	<!-- ================= -->
+	<target name="compile-src" depends="prepare">
+		<javac source="${build.javac.version}" 
+			srcdir="${build.src.path}" 
+			encoding="${build.javac.encoding}" 
+			debug="${build.javac.debug}" 
+			destDir="${build.class.path}"
+			classpathref="project.build.class.path">
+		</javac>
+	</target>
+
+	<target name="package" depends="compile-src">
+			<mkdir dir="${build.output.path}/lib" />
+			<pathconvert property="libs.project" pathsep=" ">
+			    <mapper>
+			      <chainedmapper>
+			        <flattenmapper />
+			        <globmapper from="*" to="lib/*" />
+			      </chainedmapper>
+			    </mapper>
+			    <path>
+			      <fileset dir="${build.library.path}">
+			        <include name="**/*.jar" />
+			      	<exclude name="hadoop*"/>
+			      	<exclude name="commons*"/>
+			      	<exclude name="log4j*"/>
+			      	<exclude name="slf4j*"/>
+			      </fileset>
+			    </path>
+			</pathconvert>
+            <pathconvert property="props.project" pathsep=" ">
+                <mapper>
+                  <chainedmapper>
+                    <flattenmapper />
+                    <globmapper from="*" to="*" />
+                  </chainedmapper>
+                </mapper>
+                <path>
+                  <fileset dir="${build.config.path}" />
+                </path>
+            </pathconvert>
+
+			<copy todir="${build.output.path}/lib">
+				<fileset dir="${build.library.path}">
+                    <exclude name="hadoop*"/>
+                    <exclude name="commons*"/>
+                    <exclude name="log4j*"/>
+                    <exclude name="slf4j*"/>
+				</fileset>
+			</copy>
+
+			<copy todir="${build.output.path}">
+				<fileset dir="${build.config.path}" />
+			</copy>
+			
+			<jar destfile="${build.output.path}/${build.class.jar.name}" filesetmanifest="mergewithoutmain">
+				<manifest>
+					<attribute name="Class-Path" value=". ${libs.project} ${props.project}" />
+				</manifest>
+				<fileset dir="${build.class.path}" />
+				<fileset dir="${build.output.path}" />
+			</jar>
+		</target>
+	
+</project>
