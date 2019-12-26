@@ -1,0 +1,38 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+th {
+    background: #0000FF;
+    color: #fff;
+}
+
+.odd {
+    background: #d0d0d0;
+}
+
+.even {
+    background: #dfdfdf;
+}
+
+.hover {
+    color: #c300c3;
+}
+
+.sorted {
+    background: #ffffbe;
+}
+
+.sorted-asc {
+    border-left: 2px solid #cc0000;
+    border-right: 2px solid #99ff00;
+}
+
+.sorted-desc {
+    border-left: 2px solid #99ff00;
+    border-right: 2px solid #cc0000;
+}
+.clickable {
+    cursor: pointer;
+}

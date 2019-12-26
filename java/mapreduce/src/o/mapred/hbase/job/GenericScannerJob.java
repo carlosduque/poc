@@ -28,7 +28,7 @@ public class GenericScannerJob extends Configured implements Tool {
      * Zookeeper quorum key in HBase, e.g.:
      * <property>
      *   <name>hbase.zookeeper.quorum</name>
-     *   <value>mckvdatpdb65.mck.experian.com,mckvdatpdb75.mck.experian.com,mckvdatpdb70.mck.experian.com</value>
+     *   <value>zk1 zk2 zk3</value>
      * </property>
      */
     private static final String HBASE_ZK_QUORUM_KEY = "hbase.zookeeper.quorum";
@@ -67,7 +67,7 @@ public class GenericScannerJob extends Configured implements Tool {
         usage.append("hadoop jar mapred-poc.jar").append(space)
             .append("o.mapred.hbase.main.GenericScannerMain").append(space)
             .append("-t duq-chf-dec").append(space)
-            .append("-z mckvdatpdb65.mck.experian.com").append(space);
+            .append("-z host.ecsp.com").append(space);
 
         Options options = new Options();
         Option opt = new Option("t", "tablename", true, "table to scan");

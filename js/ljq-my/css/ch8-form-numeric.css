@@ -1,0 +1,158 @@
+form {
+  clear: both;
+}
+
+#content fieldset {
+  margin: 1em 0;
+  padding: 0 0 1em;
+  position: relative;
+}
+
+#content fieldset h3,
+#shipping h3 {
+  background-color: #15b;
+  color: #fff;
+  padding: 3px 8px;
+  margin: 2px 2px .5em 2px;
+}
+
+
+#content label {
+  float: left;
+  margin: .5em;
+  width: 9em;
+  text-align: right;
+}
+
+input, textarea {
+  margin-top: .25em;
+}
+textarea {
+  width: 300px;
+  height: 60px;
+}
+form ol {
+  margin-left: .5em;
+  margin-right: 1.5em;
+  list-style-type: none;
+}
+
+#content form li {
+  float: left;
+  clear: left;
+  width: 100%;
+  margin-left: 0;
+}
+
+/* nested items - checkboxes, radio buttons, etc.*/
+form ol ul,
+form ol ol {
+  margin-top: .5em;
+  margin-left: 2.5em;
+  list-style-type: none;
+}
+#content ol ul label,
+#content ol ol label {
+  text-align: left;
+}
+#content .discover label {
+  width: auto;
+}
+label input {
+  margin-bottom: 0;
+}
+
+div.legend {
+  display: block;
+  width: 100%;
+}
+
+.hidden {
+  display: none;
+}
+
+.req-label {
+  font-weight: bold;
+}
+
+#content .warning {
+  color: #900;
+  background: #ffc;
+  padding: 5px;
+}
+
+.checkall {
+  border-bottom: 1px dotted #ccc;
+  color: #777;
+  line-height: 2;
+}
+
+/***************************************
+   =cart
+-------------------------------------- */
+
+#cart thead tr {
+  background: #00f;
+  color: #fff;
+}
+#cart tbody tr {
+  background-color: #eee;
+}
+#cart tbody tr.alt {
+  background-color: #ddd;
+}
+#content #cart {
+  border-collapse: collapse;
+}
+#content #cart tfoot {
+  border-top: 2px solid #000;
+  white-space: nowrap;
+}
+#content #cart tfoot tr {
+  border-bottom: 1px solid #ccc;
+}
+td.item {
+  width: 100%;
+}
+td.quantity input {
+  width: 30px;
+  
+}
+a:visited {
+  color: #00c;
+}
+#cart th.price, td.price,
+#cart th.cost, td.cost,
+td.value {
+  text-align: right;
+}
+td.delete-item {
+  text-align: center;
+}
+tr.total {
+  font-weight: bold;
+}
+tr.actions {
+  text-align: right;
+}
+
+.field-keys {
+  border-top: 1px solid #15b;
+  border-bottom: 1px solid #15b;
+  background: #e3e3e3;
+  padding: 3px;
+  margin: .5em 10px;
+}
+#shipping {
+  border: 1px solid #000;
+  padding: 2px .25em;
+  float: right;
+  margin-bottom: 1em;
+}
+#shipping-name {
+  margin-left: 3px;
+}
+#shipping-name a {
+  padding: 6px 0 0 20px;
+  background: url('../img/pencil_go.png') no-repeat 0 50%;
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Cap. 8 - Forms</title>
+    <link rel="stylesheet" href="../css/ch8-form-checkbox.css" type="text/css" media="screen" />
+    <script src="../js/jquery-1.4.2.min.js" type="text/javascript"></script>
+    <script src="../js/ch8-form-checkbox.js" type="text/javascript"></script>
+</head>
+<body>
+    <form id="contact" action="#" method="get">
+          <fieldset>
+            <legend>Personal Info</legend>
+            <ol>
+              <li><label for="first-name">First Name</label><input class="required" type="text" name="first-name" id="first-name" /> <span>(required)</span></li>
+              <li><label for="last-name">Last Name</label><input class="required" type="text" name="last-name" id="last-name" /> <span>(required)</span></li>
+              <li>How would you like to be contacted? (choose at least one method)
+                <ul>
+                  <li>
+                    <label>
+                      <input type="checkbox" name="by-contact-type" value="E-mail" id="by-email" /> 
+                      by E-Mail
+                    </label>
+                    <input class="conditional" type="text" name="email" id="email" /> <span>(required when corresponding checkbox checked)</span></li>
+                  <li>
+                    <label>
+                      <input type="checkbox" name="by-contact-type" value="Phone" id="by-phone" /> 
+                      by Phone
+                    </label>
+                    <input class="conditional" type="text" name="phone" id="phone" /> <span>(required when corresponding checkbox checked)</span></li>
+                  <li>
+                    <label>
+                      <input type="checkbox" name="by-contact-type" value="Fax" id="by-fax" /> 
+                      by Fax
+                    </label>
+                    <input class="conditional" type="text" name="fax" id="fax" /> <span>(required when corresponding checkbox checked)</span></li>
+                </ul>
+              </li>
+            </ol>
+          </fieldset>
+          
+          <!--
+          <fieldset>
+            <legend>Message</legend>
+            <ol><li><label for="subject">Subject</label><input type="text" name="subject" id="subject" /></li>
+            <li><label for="comment">Body</label><textarea></textarea></li></ol>
+          </fieldset>
+          -->
+
+          <fieldset>
+            <legend>Miscellaneous</legend>
+            <ol>
+              <li class="discover">How did you discover us? (Check all that apply)
+                <ul>
+                  <li><label><input type="checkbox" name="discover" value="magazine" id="magazine" /> Magazine</label></li>
+                  <li><label><input type="checkbox" name="discover" value="website" id="website" /> Website</label></li>
+                  <li><label><input type="checkbox" name="discover" value="tv" id="tv" /> Television</label></li>
+                  <li><label><input type="checkbox" name="discover" value="movie" id="movie" /> Movie</label></li>
+                  <li><label><input type="checkbox" name="discover" value="school" id="school" /> School</label></li>
+                  <li><label><input type="checkbox" name="discover" value="mom" id="mom" /> Mom</label></li>
+                  <li><label><input type="checkbox" name="discover" value="billboard" id="billboard" /> Billboard</label></li>
+                  <li><label><input type="checkbox" name="discover" value="graffiti" id="graffiti" /> Graffiti</label></li>
+                  <li><label><input type="checkbox" name="discover" value="detritus" id="detritus" /> Detritus</label></li>
+                  <li><label><input type="checkbox" name="discover" value="hate-mail" id="hate-mail" /> Hate Mail</label></li>
+                </ul>
+              </li>
+            </ol>
+          </fieldset>
+          <input type="submit" value="Send" id="send" />
+        </form>
+
+</body>
+</html>
+

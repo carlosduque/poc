@@ -16,6 +16,12 @@
       (seqable? (first xs)) (recur acc (concat (first xs) (rest xs)))
       :else (recur (cons (first xs) acc) (rest xs)))))
 
+;; #29
+(def str1 "HeLlO, WoRlD!")
+(def str2 "nothing")
+(def str3 "$#A(*&987Zf")
+#(apply str (re-seq #"[A-Z]" %))
+
 ;; #30
 (def mystr "Leeeerrroy")
 (def myvec [1 1 2 3 3 2 2 3])
@@ -30,3 +36,13 @@
 ;; #31
 #(partition-by identity %)
 
+;; #32
+(def l1 [1 2 3])
+(def l2 [:a :a :b :b])
+(def l3 [[1 2] [3 4]])
+
+(defn duplicater
+  [coll]
+  (flatten (map (fn [e] (list e e)) coll)))
+
+(#(flatten (map (fn [e] (list e e)) %)) l1)

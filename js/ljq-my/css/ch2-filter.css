@@ -1,0 +1,12 @@
+.external {
+    background: url(../img/external.png) no-repeat right top;
+    padding-right: 15px;
+}
+
+.remark-next {
+    background: #d9fa35;
+}
+
+.remark-prev {
+    font-weight: bold;
+}
