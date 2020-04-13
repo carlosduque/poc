@@ -17,8 +17,10 @@ import org.apache.avro.generic.GenericDatumWriter;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.io.DatumReader;
 import org.apache.avro.io.DatumWriter;
+import org.apache.avro.io.BinaryEncoder;
 import org.apache.avro.io.Encoder;
 import org.apache.avro.io.EncoderFactory;
+import org.apache.avro.specific.SpecificDatumReader;
 import org.apache.avro.specific.SpecificDatumWriter;
 
 import o.beans.Author;
@@ -41,22 +43,43 @@ public class AvroSerializer implements Serializer {
 
     @Override
     public void serialize(Author author, File file) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        Encoder enc = EncoderFactory.get().binaryEncoder(baos, null);
-        DatumWriter<Author> writer = new SpecificDatumWriter<Author>(Author.class);
-        DataFileWriter<Author> dataFileWriter = new DataFileWriter<Author>(writer);
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        BinaryEncoder enc = EncoderFactory.get().binaryEncoder(os, null);
 
+        DatumWriter<Author> writer = new SpecificDatumWriter<Author>(Author.class);
+        DataFileWriter<Author> fw = new DataFileWriter<Author>(writert status);
         try {
-            dataFileWriter.create(this.schema, file);
-            enc.flush();
-            dataFileWriter.close();
+            fw.create(this.schema, file);
+            fw.append(author);
+            fw.flush();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Exception: " + e.getMessage());
+        } finally {
+            try {
+                fw.close();
+                os.close();
+            } catch (Exception e) {
+                System.err.println("Exception: " + e.getMessage());
+            }
         }
     }
 
     public Author deserialize(final File file) {
-        return null;
+        SpecificDatumReader<Author> reader = new SpecificDatumReader<Author>(this.schema);
+        DataFileReader<Author> fr = null;
+        Author author = null;
+        try {
+            fr = new DataFileReader<Author>(file, reader);
+            while (fr.hasNext()) {
+                // Reuse user object by passing it to next(). This saves us from
+                // allocating and garbage collecting many objects for files with
+                // many items.
+                author = fr.next(author);
+            }
+        } catch (Exception e) {
+            System.err.println("Exception: " + e.getMessage());
+        }
+        return author;
     }
 
 }

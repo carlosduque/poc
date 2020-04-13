@@ -1,4 +1,4 @@
-{"namespace": "o",
+{"namespace": "o.beans",
  "type": "record",
  "name": "Author",
  "fields": [
