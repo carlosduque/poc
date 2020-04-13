@@ -1,0 +1,15 @@
+{"namespace": "o",
+ "type": "record",
+ "name": "Author",
+ "fields": [
+     {"name": "name",     "type": "string"},
+     {"name": "lastname", "type": "string"},
+     {"name": "dob",      "type": "long"},
+     {"name": "books",    "type": {"type": "array",
+         "items": {
+             "type": "record",
+             "name": "Book",
+             "fields": [{"name": "title", "type": "string"},
+                        {"name": "pages", "type": "int"}]}}}
+ ]
+}
