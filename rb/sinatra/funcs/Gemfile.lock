@@ -1,10 +1,15 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    bootstrap-sass (3.2.0.0)
-      sass (~> 3.2)
+    autoprefixer-rails (9.6.5)
+      execjs
+    bootstrap-sass (3.4.1)
+      autoprefixer-rails (>= 5.2.1)
+      sassc (>= 2.0.0)
     byebug (9.0.5)
     coderay (1.1.1)
+    execjs (2.7.0)
+    ffi (1.11.1)
     haml (4.0.7)
       tilt
     method_source (0.8.2)
@@ -20,6 +25,8 @@ GEM
     rack-protection (1.5.3)
       rack
     sass (3.4.22)
+    sassc (2.2.1)
+      ffi (~> 1.9)
     sequel (4.35.0)
     sinatra (1.4.7)
       rack (~> 1.5)
@@ -33,7 +40,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootstrap-sass (= 3.2.0.0)
+  bootstrap-sass (= 3.4.1)
   haml (= 4.0.7)
   pry-byebug
   puma
