@@ -1,6 +1,0 @@
-Exception in thread "main" java.io.FileNotFoundException: \IOStreamDemo.java (El sistema no puede hallar el archivo especificado)
-	at java.io.FileInputStream.open(Native Method)
-	at java.io.FileInputStream.<init>(Unknown Source)
-	at java.io.FileInputStream.<init>(Unknown Source)
-	at java.io.FileReader.<init>(Unknown Source)
-	at hn.alcros.io.IOStreamDemo.main(IOStreamDemo.java:19)

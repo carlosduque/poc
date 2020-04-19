@@ -1,4 +1,0 @@
-flash 10 4
-batman 12 6
-superman 11 3
-hulk 6 1
